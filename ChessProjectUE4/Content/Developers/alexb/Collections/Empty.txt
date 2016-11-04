@@ -1,1 +1,0 @@
-This is just for SVN to accept this empty folder (initial commit)
