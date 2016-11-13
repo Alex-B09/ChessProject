@@ -20,6 +20,16 @@ public:
     // Called every frame
     virtual void Tick(float DeltaSeconds) override;
 
+    // TODO Something special for battle...
+    //      like when into battle
+    //      or when charging
+    //      or when diying
 
+protected:
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
+        int mMovementRange = 0;
 
+    // Moral will represent the HP of the piece
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
+        int mMorale = 10;
 };

@@ -50,8 +50,9 @@ private:
     UPROPERTY(VisibleAnywhere, Category = "Board")
         TArray<AChessSquare*> mBoardSquares;
 
-    UPROPERTY(VisibleAnywhere, Category = "Board")
-        TArray<AChessPiece*> mBoardPieces;      // the owner of the pieces
+    // commented for now...i'm not planing using anything dynamics for a long time
+    //UPROPERTY(VisibleAnywhere, Category = "Board")
+    //    TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
 
     const int NB_SQUARES = 64;
     const int NB_PIECES_PER_SIDE = 16;

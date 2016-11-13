@@ -11,14 +11,13 @@ AChessBoard::AChessBoard()
     PrimaryActorTick.bCanEverTick = true;
 
     mBoardSquares.SetNum(NB_SQUARES);
-    mBoardSquares.SetNum(NB_PIECES_PER_SIDE * 2); // TODO spawn actors at 0,0 maybe..or their respective squares?
+    //mBoardPieces.SetNum(NB_PIECES_PER_SIDE * 2); // TODO spawn actors at 0,0 maybe..or their respective squares?
 }
 
 // Called when the game starts or when spawned
 void AChessBoard::BeginPlay()
 {
     Super::BeginPlay();
-
 }
 
 // Called every frame
