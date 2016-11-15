@@ -2,28 +2,29 @@
 	"TargetName" : "ChessProjectUE4Editor",
 	"Platform" : "Win64",
 	"Configuration" : "Development",
-	"BuildId" : "91eb2db9-6a5c-43df-b114-8c5fed25a88f",
+	"BuildId" : "",
 	"Version" : 
 	{
 		"MajorVersion" : 4,
-		"MinorVersion" : 13,
-		"PatchVersion" : 2,
-		"Changelist" : 3172292,
+		"MinorVersion" : 14,
+		"PatchVersion" : 0,
+		"Changelist" : 3195953,
+		"CompatibleChangelist" : 0,
 		"IsLicenseeVersion" : 0,
-		"BranchName" : "++UE4+Release-4.13"
+		"BranchName" : "++UE4+Release-4.14"
 	},
 	"BuildProducts" :
 	[
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4-8331.dll",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4.dll",
 			"Type" : "DynamicLibrary"
 		},
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4-8331.pdb",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4.pdb",
 			"Type" : "SymbolFile"
 		},
 		{
-			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-ChessProjectUE4-8331.lib",
+			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-ChessProjectUE4.lib",
 			"Type" : "ImportLibrary"
 		}
 	],
@@ -59,6 +60,10 @@
 		},
 		{
 			"Path" : "$(EngineDir)/Plugins/Developer/VisualStudioSourceCodeAccess/VisualStudioSourceCodeAccess.uplugin",
+			"Type" : "UFS"
+		},
+		{
+			"Path" : "$(EngineDir)/Plugins/Editor/AudioCapture/AudioCapture.uplugin",
 			"Type" : "UFS"
 		},
 		{
@@ -154,7 +159,7 @@
 			"Type" : "UFS"
 		},
 		{
-			"Path" : "$(EngineDir)/Plugins/Runtime/GearVR/GearVR.uplugin",
+			"Path" : "$(EngineDir)/Plugins/Runtime/MobilePatchingUtils/MobilePatchingUtils.uplugin",
 			"Type" : "UFS"
 		},
 		{
@@ -190,7 +195,15 @@
 			"Type" : "UFS"
 		},
 		{
+			"Path" : "$(EngineDir)/Content/SlateDebug/...",
+			"Type" : "UFS"
+		},
+		{
 			"Path" : "$(ProjectDir)/Content/Slate/...",
+			"Type" : "UFS"
+		},
+		{
+			"Path" : "$(EngineDir)/Content/SlateDebug/...",
 			"Type" : "UFS"
 		}
 	]
