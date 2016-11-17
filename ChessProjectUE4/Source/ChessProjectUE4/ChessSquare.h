@@ -23,7 +23,16 @@ public:
     AChessPiece * GetPiece() const;
     void SetPiece(AChessPiece * piece);
 
+    // TODO check if usefull to put in engine
+    void TriggerSelectorVisibility(bool visibility);
+
 private:
-    UPROPERTY(VisibleAnywhere, Category = "Square")
+    UPROPERTY(VisibleAnywhere, Category = "Gameplay")
         AChessPiece * mPiece;    // no ownership here
+
+    UPROPERTY(EditAnywhere, Category = "Gameplay")
+        UStaticMeshComponent * mSquareMesh;
+
+    UPROPERTY(EditAnywhere, Category = "Gameplay")
+        UStaticMeshComponent * mSelector;
 };
