@@ -34,5 +34,5 @@ private:
         UStaticMeshComponent * mSquareMesh;
 
     UPROPERTY(EditAnywhere, Category = "Gameplay")
-        UStaticMeshComponent * mSelector;
+        UStaticMeshComponent * mSelectorMesh;
 };

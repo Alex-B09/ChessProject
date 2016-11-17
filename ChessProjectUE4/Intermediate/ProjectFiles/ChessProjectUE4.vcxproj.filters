@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\ChessProjectUE4.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{5F87BA92-0395-43D3-BC0D-95D25A1A6E3B}</UniqueIdentifier>
+			<UniqueIdentifier>{82E15C07-506C-47A0-93E8-BA1BAB584D9D}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\ChessProjectUE4.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{44609EA6-C4DC-4F8D-B29A-8226400A2EEF}</UniqueIdentifier>
+			<UniqueIdentifier>{269B211E-C28B-4B89-957C-BD026030ED5A}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -25,7 +25,7 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Source\ChessProjectUE4">
-			<UniqueIdentifier>{A45E9B39-D8B3-4196-8057-7900473E935D}</UniqueIdentifier>
+			<UniqueIdentifier>{CA12693D-6AC9-4A60-9872-4298D360166C}</UniqueIdentifier>
 		</Filter>
 		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessBoard.cpp">
 			<Filter>Source\ChessProjectUE4</Filter>
