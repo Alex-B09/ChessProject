@@ -34,6 +34,8 @@ public:
     // Sets default values for this actor's properties
     AChessBoard();
 
+    virtual void OnConstruction(const FTransform& Transform) override;
+
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
@@ -51,8 +53,8 @@ private:
         TArray<AChessSquare*> mBoardSquares;
 
     // commented for now...i'm not planing using anything dynamics for a long time
-    //UPROPERTY(VisibleAnywhere, Category = "Board")
-    //    TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
+    UPROPERTY(VisibleAnywhere, Category = "Board")
+        TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
 
     const int NB_SQUARES = 64;
     const int NB_PIECES_PER_SIDE = 16;

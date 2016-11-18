@@ -26,6 +26,8 @@ public:
     // TODO check if usefull to put in engine
     void TriggerSelectorVisibility(bool visibility);
 
+    void SetCheckerMaterial(bool isBlack);
+
 private:
     UPROPERTY(VisibleAnywhere, Category = "Gameplay")
         AChessPiece * mPiece;    // no ownership here

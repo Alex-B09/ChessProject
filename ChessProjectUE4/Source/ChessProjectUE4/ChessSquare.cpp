@@ -29,7 +29,7 @@ AChessSquare::AChessSquare()
         {
             mSelectorMesh->SetStaticMesh(selectorAsset);
             mSelectorMesh->SetupAttachment(root);
-            mSelectorMesh->AddLocalOffset(FVector(-200.f, -200.f, 35.f)); // hack
+            mSelectorMesh->RelativeLocation = FVector(-200.f, -200.f, 35.f); // hack
             mSelectorMesh->SetWorldScale3D(FVector(1.0f, 1.0f, .75f));
         }
     }
@@ -57,5 +57,21 @@ void AChessSquare::TriggerSelectorVisibility(bool visibility)
     if (mSelectorMesh)
     {
         // TODO
+    }
+}
+
+void AChessSquare::SetCheckerMaterial(bool isBlack)
+{
+    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
+    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
+
+
+    if (isBlack)
+    {
+        mSquareMesh->SetMaterial(0, blackMaterial.Object);
+    }
+    else
+    {
+        mSquareMesh->SetMaterial(0, whiteMaterial.Object);
     }
 }
