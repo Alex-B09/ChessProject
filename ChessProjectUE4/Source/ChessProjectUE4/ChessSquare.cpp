@@ -16,21 +16,24 @@ AChessSquare::AChessSquare()
 
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
+    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
     mSquareMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tile"));
     mSelectorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Selector"));
-
-    auto root = GetRootComponent();
-    root = mSquareMesh;
 
     if (tileAsset)
     {
         mSquareMesh->SetStaticMesh(tileAsset);
+        mSquareMesh->SetupAttachment(RootComponent);
         if (mSelectorMesh)
         {
             mSelectorMesh->SetStaticMesh(selectorAsset);
-            mSelectorMesh->SetupAttachment(root);
-            mSelectorMesh->RelativeLocation = FVector(-200.f, -200.f, 35.f); // hack
-            mSelectorMesh->SetWorldScale3D(FVector(1.0f, 1.0f, .75f));
+            mSelectorMesh->SetupAttachment(RootComponent);
+
+            FTransform relativeTransform;
+            relativeTransform.SetLocation(FVector(-200.f, -200.f, 35.f)); // hack
+            relativeTransform.SetScale3D(FVector(.9f, 0.9f, .65f));
+
+            mSelectorMesh->AddLocalTransform(relativeTransform);
         }
     }
 }

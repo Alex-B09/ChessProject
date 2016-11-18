@@ -13,16 +13,14 @@ AChessBoard::AChessBoard()
     mBoardSquares.SetNum(NB_SQUARES);
 
     // generate the squares
-    const int NB_TILES = 64;
     const int NB_ROWS = 8;
     const int NB_COLS = 8;
-    const float TILE_SIZE_X = 400.f;
-    const float TILE_SIZE_Y = 400.f;
+    const float TILE_SIZE_X = 410.f;
+    const float TILE_SIZE_Y = 410.f;
 
     FString test1 = "Hello";
     test1.AppendInt(1);
-    auto root = GetRootComponent();
-    root = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Board"));
+    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Board"));
 
     for (int rowId = 0; rowId < NB_ROWS; rowId++)
     {
@@ -33,9 +31,8 @@ AChessBoard::AChessBoard()
 
             auto childActor = CreateDefaultSubobject<UChildActorComponent>(*componentName);
             childActor->SetChildActorClass(AChessSquare::StaticClass());
-            childActor->RelativeLocation = location;
+            childActor->SetupAttachment(RootComponent);
 
-            childActor->SetupAttachment(root);
         }
     }
 }
@@ -46,16 +43,27 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
     bool isBlack = true;
+    int i = 0;
+    const float TILE_SIZE_X = 410.f;
+    const float TILE_SIZE_Y = 410.f;
+
     for (auto& child : children)
     {
         if (auto childActor = Cast<UChildActorComponent>(child))
         {
+            FVector location((i/8) * TILE_SIZE_X, (i%8)* TILE_SIZE_Y, 10.f);
+            FTransform relativeTransform;
+            relativeTransform.SetLocation(location);
+            childActor->AddLocalTransform(relativeTransform);
+
             if (auto tile = Cast<AChessSquare>(childActor->GetChildActor()))
             {
-                tile->SetCheckerMaterial(isBlack);
+                //tile->SetCheckerMaterial(isBlack);
                 isBlack = !isBlack;
             }
         }
+
+        ++i;
     }
 
     int k = 0;
