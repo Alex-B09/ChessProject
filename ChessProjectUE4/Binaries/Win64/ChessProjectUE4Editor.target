@@ -2,7 +2,7 @@
 	"TargetName" : "ChessProjectUE4Editor",
 	"Platform" : "Win64",
 	"Configuration" : "Development",
-	"BuildId" : "",
+	"BuildId" : "e2be4a74-b9d2-4bd1-935a-4343cc2ecffe",
 	"Version" : 
 	{
 		"MajorVersion" : 4,
@@ -16,15 +16,15 @@
 	"BuildProducts" :
 	[
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4.dll",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4-6667.dll",
 			"Type" : "DynamicLibrary"
 		},
 		{
-			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4.pdb",
+			"Path" : "$(ProjectDir)/Binaries/Win64/UE4Editor-ChessProjectUE4-6667.pdb",
 			"Type" : "SymbolFile"
 		},
 		{
-			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-ChessProjectUE4.lib",
+			"Path" : "$(ProjectDir)/Intermediate/Build/Win64/UE4Editor/Development/UE4Editor-ChessProjectUE4-6667.lib",
 			"Type" : "ImportLibrary"
 		}
 	],

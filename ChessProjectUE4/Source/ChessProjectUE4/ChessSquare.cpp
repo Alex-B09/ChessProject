@@ -8,15 +8,15 @@
 AChessSquare::AChessSquare()
     :mPiece(nullptr)
 {
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Square/Floor_400x400.Floor_400x400'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
     UStaticMesh * tileAsset = staticTile.Object;
 
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Square/chessSquareSelector.chessSquareSelector'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
     UStaticMesh * selectorAsset = staticSelector.Object;
 
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
-    mSquareMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Square"));
+    mSquareMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tile"));
     mSelectorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Selector"));
 
     auto root = GetRootComponent();
@@ -29,8 +29,8 @@ AChessSquare::AChessSquare()
         {
             mSelectorMesh->SetStaticMesh(selectorAsset);
             mSelectorMesh->SetupAttachment(root);
-            mSelectorMesh->AddLocalOffset(FVector(200.f, 200.f, 15.f)); // hack
-            mSelectorMesh->SetWorldScale3D(FVector(2.f, 2.f, 0.75f));
+            mSelectorMesh->AddLocalOffset(FVector(-200.f, -200.f, 35.f)); // hack
+            mSelectorMesh->SetWorldScale3D(FVector(1.0f, 1.0f, .75f));
         }
     }
 }
