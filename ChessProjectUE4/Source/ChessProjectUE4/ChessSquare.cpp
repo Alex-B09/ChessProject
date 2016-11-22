@@ -3,6 +3,11 @@
 #include "ChessProjectUE4.h"
 #include "ChessSquare.h"
 
+namespace
+{
+    UMaterial * blackCheckerMaterial = nullptr;
+    UMaterial * whiteCheckerMaterial = nullptr;
+};
 
 // Sets default values
 AChessSquare::AChessSquare()
@@ -11,14 +16,35 @@ AChessSquare::AChessSquare()
     static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
     UStaticMesh * tileAsset = staticTile.Object;
 
+    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
+    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
+
+    if (!whiteCheckerMaterial)
+    {
+        whiteCheckerMaterial = whiteMaterial.Object;
+    }
+    if (!blackCheckerMaterial)
+    {
+        blackCheckerMaterial = blackMaterial.Object;
+    }
+
     static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
     UStaticMesh * selectorAsset = staticSelector.Object;
 
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
-    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
-    mSquareMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tile"));
-    mSelectorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Selector"));
+    if (!RootComponent)
+    {
+        RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Root"));
+    }
+    if (!mSquareMesh)
+    {
+        mSquareMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Tile"));
+    }
+    if (!mSelectorMesh)
+    {
+        mSelectorMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Selector"));
+    }
 
     if (tileAsset)
     {
@@ -27,11 +53,11 @@ AChessSquare::AChessSquare()
         if (mSelectorMesh)
         {
             mSelectorMesh->SetStaticMesh(selectorAsset);
-            mSelectorMesh->SetupAttachment(RootComponent);
+            mSelectorMesh->SetupAttachment(mSquareMesh);
 
             FTransform relativeTransform;
             relativeTransform.SetLocation(FVector(-200.f, -200.f, 35.f)); // hack
-            relativeTransform.SetScale3D(FVector(.9f, 0.9f, .65f));
+            relativeTransform.SetScale3D(FVector(1.f, 1.f, .65f));
 
             mSelectorMesh->AddLocalTransform(relativeTransform);
         }
@@ -65,16 +91,12 @@ void AChessSquare::TriggerSelectorVisibility(bool visibility)
 
 void AChessSquare::SetCheckerMaterial(bool isBlack)
 {
-    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
-    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
-
-
     if (isBlack)
     {
-        mSquareMesh->SetMaterial(0, blackMaterial.Object);
+        mSquareMesh->SetMaterial(0, blackCheckerMaterial);
     }
     else
     {
-        mSquareMesh->SetMaterial(0, whiteMaterial.Object);
+        mSquareMesh->SetMaterial(0, whiteCheckerMaterial);
     }
 }

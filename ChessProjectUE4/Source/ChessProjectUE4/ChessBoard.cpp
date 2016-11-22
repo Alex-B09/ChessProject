@@ -18,9 +18,10 @@ AChessBoard::AChessBoard()
     const float TILE_SIZE_X = 410.f;
     const float TILE_SIZE_Y = 410.f;
 
-    FString test1 = "Hello";
-    test1.AppendInt(1);
-    RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Board"));
+    if (!RootComponent)
+    {
+        RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Board"));
+    }
 
     for (int rowId = 0; rowId < NB_ROWS; rowId++)
     {
@@ -43,30 +44,38 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
     bool isBlack = true;
-    int i = 0;
-    const float TILE_SIZE_X = 410.f;
-    const float TILE_SIZE_Y = 410.f;
+    int column = 0;
+    int row = 0;
+
+    const FVector SCALE = GetActorScale();
+
+    const float TILE_SIZE_X = 200.f * SCALE.X;
+    const float TILE_SIZE_Y = 200.f * SCALE.Y;
 
     for (auto& child : children)
     {
         if (auto childActor = Cast<UChildActorComponent>(child))
         {
-            FVector location((i/8) * TILE_SIZE_X, (i%8)* TILE_SIZE_Y, 10.f);
+            FVector location(row * TILE_SIZE_X, column * TILE_SIZE_Y, 10.f);
             FTransform relativeTransform;
             relativeTransform.SetLocation(location);
             childActor->AddLocalTransform(relativeTransform);
 
             if (auto tile = Cast<AChessSquare>(childActor->GetChildActor()))
             {
-                //tile->SetCheckerMaterial(isBlack);
+                tile->SetCheckerMaterial(isBlack);
+                isBlack = !isBlack;
+            }
+            ++column;
+
+            if (column == 8)
+            {
+                column = 0;
+                row++;
                 isBlack = !isBlack;
             }
         }
-
-        ++i;
     }
-
-    int k = 0;
 }
 
 // Called when the game starts or when spawned
