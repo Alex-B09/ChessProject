@@ -56,6 +56,11 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
     {
         if (auto childActor = Cast<UChildActorComponent>(child))
         {
+            if (!childActor->GetChildActor())
+            {
+                childActor->CreateChildActor();
+            }
+
             FVector location(row * TILE_SIZE_X, column * TILE_SIZE_Y, 10.f);
             FTransform relativeTransform;
             relativeTransform.SetLocation(location);
