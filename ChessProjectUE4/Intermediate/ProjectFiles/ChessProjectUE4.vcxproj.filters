@@ -1,100 +1,99 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-	<ItemGroup>
-		<None Include="..\..\ChessProjectUE4.uproject" />
-		<Filter Include="Source">
-			<UniqueIdentifier>{70222AAC-4A2D-4A8E-B30F-D94E97C55CA6}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Source\ChessProjectUE4.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<None Include="..\..\Source\ChessProjectUE4Editor.Target.cs">
-			<Filter>Source</Filter>
-		</None >
-		<Filter Include="Config">
-			<UniqueIdentifier>{D31C1388-5B8D-4CF8-95F7-FE486F2F1ED7}</UniqueIdentifier>
-		</Filter>
-		<None Include="..\..\Config\DefaultEditor.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultEngine.ini">
-			<Filter>Config</Filter>
-		</None >
-		<None Include="..\..\Config\DefaultGame.ini">
-			<Filter>Config</Filter>
-		</None >
-		<Filter Include="Source\ChessProjectUE4">
-			<UniqueIdentifier>{25677FE3-93B5-40A7-BB68-D6F263D696B6}</UniqueIdentifier>
-		</Filter>
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessBoard.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessBoard.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessPiece.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessPiece.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceBishop.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceBishop.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceKing.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceKing.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceKnight.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceKnight.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessPiecePawn.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessPiecePawn.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceQueen.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceQueen.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceRook.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceRook.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<None Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.Build.cs">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</None >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessProjectUE4GameMode.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessProjectUE4GameMode.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessSquare.cpp">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClCompile >
-		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessSquare.h">
-			<Filter>Source\ChessProjectUE4</Filter>
-		</ClInclude >
-	</ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\ChessProjectUE4.uproject" />
+    <Filter Include="Source">
+      <UniqueIdentifier>{70222AAC-4A2D-4A8E-B30F-D94E97C55CA6}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Source\ChessProjectUE4.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <None Include="..\..\Source\ChessProjectUE4Editor.Target.cs">
+      <Filter>Source</Filter>
+    </None>
+    <Filter Include="Config">
+      <UniqueIdentifier>{D31C1388-5B8D-4CF8-95F7-FE486F2F1ED7}</UniqueIdentifier>
+    </Filter>
+    <None Include="..\..\Config\DefaultEditor.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultEngine.ini">
+      <Filter>Config</Filter>
+    </None>
+    <None Include="..\..\Config\DefaultGame.ini">
+      <Filter>Config</Filter>
+    </None>
+    <Filter Include="Source\ChessProjectUE4">
+      <UniqueIdentifier>{25677FE3-93B5-40A7-BB68-D6F263D696B6}</UniqueIdentifier>
+    </Filter>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessBoard.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessBoard.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPiece.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPiece.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceBishop.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceBishop.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceKing.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceKing.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceKnight.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceKnight.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPiecePawn.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPiecePawn.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceQueen.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceQueen.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceRook.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceRook.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <None Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.Build.cs">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </None>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessProjectUE4GameMode.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessProjectUE4GameMode.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessSquare.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessSquare.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+  </ItemGroup>
 </Project>

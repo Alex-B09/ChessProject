@@ -39,14 +39,14 @@ public:
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
-    // Called every frame
-    virtual void Tick(float DeltaSeconds) override;
-
     UFUNCTION(BlueprintPure, Category = "Board")
         AChessSquare * GetSquare(int col, int row);
 
     UFUNCTION(BlueprintPure, Category = "Board")
         AChessSquare * GetSquareFromIndex(int index);
+
+private:
+    void loadCheckerMaterial();
 
 private:
     UPROPERTY(VisibleAnywhere, Category = "Board")
@@ -57,5 +57,4 @@ private:
         TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
 
     const int NB_SQUARES = 64;
-    const int NB_PIECES_PER_SIDE = 16;
 };

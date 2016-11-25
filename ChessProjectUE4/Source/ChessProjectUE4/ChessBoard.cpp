@@ -3,13 +3,21 @@
 #include "ChessProjectUE4.h"
 #include "ChessBoard.h"
 
+#include <Components/StaticMeshComponent.h>
+
+namespace
+{
+    UMaterial * blackCheckerMaterial = nullptr;
+    UMaterial * whiteCheckerMaterial = nullptr;
+    UStaticMesh * tileAsset = nullptr;
+    UStaticMesh * selectorAsset = nullptr;
+};
+
 
 // Sets default values
 AChessBoard::AChessBoard()
 {
-    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
-
     mBoardSquares.SetNum(NB_SQUARES);
 
     // generate the squares
@@ -17,6 +25,8 @@ AChessBoard::AChessBoard()
     const int NB_COLS = 8;
     const float TILE_SIZE_X = 410.f;
     const float TILE_SIZE_Y = 410.f;
+
+    loadCheckerMaterial();
 
     if (!RootComponent)
     {
@@ -27,13 +37,16 @@ AChessBoard::AChessBoard()
     {
         for (int colId = 0; colId < NB_COLS; colId++)
         {
-            FVector location(rowId * TILE_SIZE_X, colId * TILE_SIZE_Y, 10.f);
-            FString componentName = "Tile_" + FString::FromInt(rowId) + "_" + FString::FromInt(colId);
+            FString componentNameTile = "Tile_" + FString::FromInt(rowId) + "_" + FString::FromInt(colId);
+            FString componentNameSelector = "Selector_" + FString::FromInt(rowId) + "_" + FString::FromInt(colId);
 
-            auto childActor = CreateDefaultSubobject<UChildActorComponent>(*componentName);
-            childActor->SetChildActorClass(AChessSquare::StaticClass());
-            childActor->SetupAttachment(RootComponent);
+            auto tileActor = CreateDefaultSubobject<UStaticMeshComponent>(*componentNameTile);
+            tileActor->SetupAttachment(RootComponent);
+            tileActor->SetStaticMesh(tileAsset);
 
+            auto selectorActor = CreateDefaultSubobject<UStaticMeshComponent>(*componentNameSelector);
+            selectorActor->SetupAttachment(tileActor);
+            selectorActor->SetStaticMesh(selectorAsset);
         }
     }
 }
@@ -41,45 +54,47 @@ AChessBoard::AChessBoard()
 
 void AChessBoard::OnConstruction(const FTransform& Transform)
 {
+    Super::OnConstruction(Transform);
+
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
     bool isBlack = true;
     int column = 0;
     int row = 0;
 
-    const FVector SCALE = GetActorScale();
+    //const FVector SCALE = GetActorScale();
 
-    const float TILE_SIZE_X = 200.f * SCALE.X;
-    const float TILE_SIZE_Y = 200.f * SCALE.Y;
+    const float TILE_SIZE_X = 200.f;
+    const float TILE_SIZE_Y = 200.f;
 
     for (auto& child : children)
     {
-        if (auto childActor = Cast<UChildActorComponent>(child))
+        FVector location(row * TILE_SIZE_X, column * TILE_SIZE_Y, 10.f);
+        FTransform relativeTransform;
+        relativeTransform.SetLocation(location);
+        child->AddLocalTransform(relativeTransform);
+
+        if (auto mesh = Cast<UStaticMeshComponent>(child))
         {
-            if (!childActor->GetChildActor())
+            if (isBlack)
             {
-                childActor->CreateChildActor();
+                mesh->SetMaterial(0, blackCheckerMaterial);
             }
-
-            FVector location(row * TILE_SIZE_X, column * TILE_SIZE_Y, 10.f);
-            FTransform relativeTransform;
-            relativeTransform.SetLocation(location);
-            childActor->AddLocalTransform(relativeTransform);
-
-            if (auto tile = Cast<AChessSquare>(childActor->GetChildActor()))
+            else
             {
-                tile->SetCheckerMaterial(isBlack);
-                isBlack = !isBlack;
+                mesh->SetMaterial(0, whiteCheckerMaterial);
             }
-            ++column;
-
-            if (column == 8)
-            {
-                column = 0;
-                row++;
-                isBlack = !isBlack;
-            }
+            isBlack = !isBlack;
         }
+        ++column;
+
+        if (column == 8)
+        {
+            column = 0;
+            row++;
+            isBlack = !isBlack;
+        }
+
     }
 }
 
@@ -87,13 +102,6 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
 void AChessBoard::BeginPlay()
 {
     Super::BeginPlay();
-}
-
-// Called every frame
-void AChessBoard::Tick(float DeltaTime)
-{
-    Super::Tick(DeltaTime);
-
 }
 
 AChessSquare * AChessBoard::GetSquare(int col, int row)
@@ -104,4 +112,31 @@ AChessSquare * AChessBoard::GetSquare(int col, int row)
 AChessSquare * AChessBoard::GetSquareFromIndex(int index)
 {
     return nullptr;
+}
+
+void AChessBoard::loadCheckerMaterial()
+{
+    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
+    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
+
+
+    if (!whiteCheckerMaterial)
+    {
+        whiteCheckerMaterial = whiteMaterial.Object;
+    }
+    if (!blackCheckerMaterial)
+    {
+        blackCheckerMaterial = blackMaterial.Object;
+    }
+    if (!tileAsset)
+    {
+        tileAsset = staticTile.Object;
+    }
+    if (!selectorAsset)
+    {
+        selectorAsset = staticSelector.Object;
+    }
+
 }

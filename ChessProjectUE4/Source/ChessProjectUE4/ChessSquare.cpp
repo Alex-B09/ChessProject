@@ -16,8 +16,12 @@ AChessSquare::AChessSquare()
     static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
     UStaticMesh * tileAsset = staticTile.Object;
 
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
+    UStaticMesh * selectorAsset = staticSelector.Object;
+
     static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
     static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
+
 
     if (!whiteCheckerMaterial)
     {
@@ -27,9 +31,6 @@ AChessSquare::AChessSquare()
     {
         blackCheckerMaterial = blackMaterial.Object;
     }
-
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
-    UStaticMesh * selectorAsset = staticSelector.Object;
 
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
