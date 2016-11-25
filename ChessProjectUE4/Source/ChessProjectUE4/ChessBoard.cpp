@@ -23,8 +23,6 @@ AChessBoard::AChessBoard()
     // generate the squares
     const int NB_ROWS = 8;
     const int NB_COLS = 8;
-    const float TILE_SIZE_X = 410.f;
-    const float TILE_SIZE_Y = 410.f;
 
     loadCheckerMaterial();
 
