@@ -18,7 +18,6 @@ namespace
 AChessBoard::AChessBoard()
 {
     PrimaryActorTick.bCanEverTick = true;
-    mBoardSquares.SetNum(NB_SQUARES);
 
     // generate the squares
     const int NB_ROWS = 8;
@@ -102,23 +101,12 @@ void AChessBoard::BeginPlay()
     Super::BeginPlay();
 }
 
-AChessSquare * AChessBoard::GetSquare(int col, int row)
-{
-    return nullptr;
-}
-
-AChessSquare * AChessBoard::GetSquareFromIndex(int index)
-{
-    return nullptr;
-}
-
 void AChessBoard::loadCheckerMaterial()
 {
     static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
     static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
     static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
-
+    //static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
 
     if (!whiteCheckerMaterial)
     {
@@ -132,9 +120,8 @@ void AChessBoard::loadCheckerMaterial()
     {
         tileAsset = staticTile.Object;
     }
-    if (!selectorAsset)
-    {
-        selectorAsset = staticSelector.Object;
-    }
-
+    //if (!selectorAsset)
+    //{
+    //    selectorAsset = staticSelector.Object;
+    //}
 }

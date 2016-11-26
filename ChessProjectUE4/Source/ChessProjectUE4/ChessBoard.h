@@ -3,7 +3,6 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
-#include "ChessSquare.h"
 #include "ChessPiece.h"
 
 #include "ChessBoard.generated.h"
@@ -34,24 +33,15 @@ public:
     // Sets default values for this actor's properties
     AChessBoard();
 
-    virtual void OnConstruction(const FTransform& Transform) override;
+    void OnConstruction(const FTransform& Transform) override;
 
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
-
-    UFUNCTION(BlueprintPure, Category = "Board")
-        AChessSquare * GetSquare(int col, int row);
-
-    UFUNCTION(BlueprintPure, Category = "Board")
-        AChessSquare * GetSquareFromIndex(int index);
 
 private:
     void loadCheckerMaterial();
 
 private:
-    UPROPERTY(VisibleAnywhere, Category = "Board")
-        TArray<AChessSquare*> mBoardSquares;
-
     // commented for now...i'm not planing using anything dynamics for a long time
     UPROPERTY(VisibleAnywhere, Category = "Board")
         TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
