@@ -30,6 +30,8 @@ AChessBoard::AChessBoard()
         RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Board"));
     }
 
+
+
     for (int rowId = 0; rowId < NB_ROWS; rowId++)
     {
         for (int colId = 0; colId < NB_COLS; colId++)
@@ -48,10 +50,10 @@ AChessBoard::AChessBoard()
     }
 }
 
-
 void AChessBoard::OnConstruction(const FTransform& Transform)
+//void AChessBoard::PostInitializeComponents()
 {
-    Super::OnConstruction(Transform);
+    //Super::PostInitializeComponents();
 
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
@@ -59,17 +61,23 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
     int column = 0;
     int row = 0;
 
-    //const FVector SCALE = GetActorScale();
+    //selector location
+    FTransform transform;
+    transform.SetScale3D(FVector(1.5f, 1.5f, 1.f));
+    transform.SetLocation(FVector(0.f, 0.f, 25.f));
 
-    const float TILE_SIZE_X = 200.f;
-    const float TILE_SIZE_Y = 200.f;
+    const float TILE_SIZE_X = 400.f;
+    const float TILE_SIZE_Y = 400.f;
 
     for (auto& child : children)
     {
-        FVector location(row * TILE_SIZE_X, column * TILE_SIZE_Y, 10.f);
-        FTransform relativeTransform;
-        relativeTransform.SetLocation(location);
-        child->AddLocalTransform(relativeTransform);
+        if (auto selector = child->GetChildComponent(0))
+        {
+            selector->SetRelativeTransform(transform);
+        }
+
+        FVector location(row * TILE_SIZE_X, column * TILE_SIZE_Y, 0.f);
+        child->SetRelativeLocation(location);
 
         if (auto mesh = Cast<UStaticMeshComponent>(child))
         {
@@ -83,6 +91,7 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
             }
             isBlack = !isBlack;
         }
+
         ++column;
 
         if (column == 8)
@@ -91,7 +100,6 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
             row++;
             isBlack = !isBlack;
         }
-
     }
 }
 
@@ -106,7 +114,7 @@ void AChessBoard::loadCheckerMaterial()
     static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
     static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
     static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
-    //static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
 
     if (!whiteCheckerMaterial)
     {
@@ -120,8 +128,8 @@ void AChessBoard::loadCheckerMaterial()
     {
         tileAsset = staticTile.Object;
     }
-    //if (!selectorAsset)
-    //{
-    //    selectorAsset = staticSelector.Object;
-    //}
+    if (!selectorAsset)
+    {
+        selectorAsset = staticSelector.Object;
+    }
 }
