@@ -51,9 +51,8 @@ AChessBoard::AChessBoard()
 }
 
 void AChessBoard::OnConstruction(const FTransform& Transform)
-//void AChessBoard::PostInitializeComponents()
 {
-    //Super::PostInitializeComponents();
+    Super::OnConstruction(Transform);
 
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();

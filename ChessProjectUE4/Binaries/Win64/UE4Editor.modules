@@ -1,7 +1,7 @@
 {
 	"Changelist" : 3195953,
 	"CompatibleChangelist" : 0,
-	"BuildId" : "",
+	"BuildId" : "8d07da1a-9c9d-4498-bd97-8093b3c8ad99",
 	"Modules" : 
 	{
 		"ChessProjectUE4" : "UE4Editor-ChessProjectUE4.dll"
