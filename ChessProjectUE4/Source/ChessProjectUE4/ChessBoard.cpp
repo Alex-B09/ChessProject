@@ -54,6 +54,51 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
 
+    createBoardLayout();
+    createTiles();
+    
+    auto & truc = mTiles;
+    int i = 0;
+}
+
+// Called when the game starts or when spawned
+void AChessBoard::BeginPlay()
+{
+    Super::BeginPlay();
+
+    for (auto & tile : mTiles)
+    {
+        tile.setSelectorVisibility(false);
+    }
+}
+
+void AChessBoard::loadCheckerMaterial()
+{
+    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
+    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
+
+    if (!whiteCheckerMaterial)
+    {
+        whiteCheckerMaterial = whiteMaterial.Object;
+    }
+    if (!blackCheckerMaterial)
+    {
+        blackCheckerMaterial = blackMaterial.Object;
+    }
+    if (!tileAsset)
+    {
+        tileAsset = staticTile.Object;
+    }
+    if (!selectorAsset)
+    {
+        selectorAsset = staticSelector.Object;
+    }
+}
+
+void AChessBoard::createBoardLayout()
+{
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
     bool isBlack = true;
@@ -102,33 +147,25 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
     }
 }
 
-// Called when the game starts or when spawned
-void AChessBoard::BeginPlay()
+void AChessBoard::createTiles()
 {
-    Super::BeginPlay();
-}
+    mTiles.RemoveAll([](ChessTile &)
+                    {
+                        return true;
+                    });
 
-void AChessBoard::loadCheckerMaterial()
-{
-    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
-    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticTile(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTile.chessTile'"));
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> staticSelector(TEXT("StaticMesh'/Game/Art/Board/Tile/chessTileSelector.chessTileSelector'"));
 
-    if (!whiteCheckerMaterial)
+    auto root = GetRootComponent();
+    auto children = root->GetAttachChildren();
+
+    for (auto child : children)
     {
-        whiteCheckerMaterial = whiteMaterial.Object;
-    }
-    if (!blackCheckerMaterial)
-    {
-        blackCheckerMaterial = blackMaterial.Object;
-    }
-    if (!tileAsset)
-    {
-        tileAsset = staticTile.Object;
-    }
-    if (!selectorAsset)
-    {
-        selectorAsset = staticSelector.Object;
+        if (auto tile = Cast<UStaticMeshComponent>(child))
+        {
+            if (auto selector = Cast<UStaticMeshComponent>(tile->GetChildComponent(0)))
+            {
+                mTiles.Add({ tile, selector });
+            }
+        }
     }
 }

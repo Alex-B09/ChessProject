@@ -4,6 +4,7 @@
 
 #include "GameFramework/Actor.h"
 #include "ChessPiece.h"
+#include "ChessTile.h"
 
 #include "ChessBoard.generated.h"
 
@@ -39,6 +40,8 @@ public:
 
 private:
     void loadCheckerMaterial();
+    void createBoardLayout();
+    void createTiles();
 
 private:
     // commented for now...i'm not planing using anything dynamics for a long time
@@ -46,4 +49,5 @@ private:
         TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
 
     const int NB_SQUARES = 64;
+    TArray<ChessTile> mTiles;
 };

@@ -4,7 +4,7 @@
 	<ItemGroup>
 		<None Include="..\..\ChessProjectUE4.uproject" />
 		<Filter Include="Source">
-			<UniqueIdentifier>{E3ACBB24-459C-4788-882A-E1767158AF9F}</UniqueIdentifier>
+			<UniqueIdentifier>{B8357FEB-54FB-4D4F-BBCE-948F279091F7}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Source\ChessProjectUE4.Target.cs">
 			<Filter>Source</Filter>
@@ -13,7 +13,7 @@
 			<Filter>Source</Filter>
 		</None >
 		<Filter Include="Config">
-			<UniqueIdentifier>{267686A3-351D-427E-9D3F-388C8D8A902D}</UniqueIdentifier>
+			<UniqueIdentifier>{B166F207-8A77-45CD-89CB-0A942358E8A0}</UniqueIdentifier>
 		</Filter>
 		<None Include="..\..\Config\DefaultEditor.ini">
 			<Filter>Config</Filter>
@@ -25,7 +25,7 @@
 			<Filter>Config</Filter>
 		</None >
 		<Filter Include="Source\ChessProjectUE4">
-			<UniqueIdentifier>{1676B3D4-0281-4369-A507-92C52590E3A7}</UniqueIdentifier>
+			<UniqueIdentifier>{B1D0280D-BBE7-4576-B9F7-99D1CC11895A}</UniqueIdentifier>
 		</Filter>
 		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessBoard.cpp">
 			<Filter>Source\ChessProjectUE4</Filter>
@@ -88,6 +88,12 @@
 			<Filter>Source\ChessProjectUE4</Filter>
 		</ClCompile >
 		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessProjectUE4GameMode.h">
+			<Filter>Source\ChessProjectUE4</Filter>
+		</ClInclude >
+		<ClCompile Include="..\..\Source\ChessProjectUE4\ChessTile.cpp">
+			<Filter>Source\ChessProjectUE4</Filter>
+		</ClCompile >
+		<ClInclude Include="..\..\Source\ChessProjectUE4\ChessTile.h">
 			<Filter>Source\ChessProjectUE4</Filter>
 		</ClInclude >
 	</ItemGroup>
