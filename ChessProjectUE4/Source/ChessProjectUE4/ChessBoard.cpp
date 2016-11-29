@@ -53,22 +53,18 @@ AChessBoard::AChessBoard()
 void AChessBoard::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
-
     createBoardLayout();
-    createTiles();
-    
-    auto & truc = mTiles;
-    int i = 0;
 }
 
 // Called when the game starts or when spawned
 void AChessBoard::BeginPlay()
 {
     Super::BeginPlay();
+    createTiles();
 
     for (auto & tile : mTiles)
     {
-        tile.setSelectorVisibility(false);
+        tile.SetSelectorVisibility(false);
     }
 }
 
@@ -153,7 +149,6 @@ void AChessBoard::createTiles()
                     {
                         return true;
                     });
-
 
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
