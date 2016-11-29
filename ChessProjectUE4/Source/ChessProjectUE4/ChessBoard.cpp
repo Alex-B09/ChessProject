@@ -18,49 +18,23 @@ namespace
 AChessBoard::AChessBoard()
 {
     PrimaryActorTick.bCanEverTick = true;
-
-    // generate the squares
-    const int NB_ROWS = 8;
-    const int NB_COLS = 8;
-
-    loadCheckerMaterial();
-
-    if (!RootComponent)
-    {
-        RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Board"));
-    }
-
-
-
-    for (int rowId = 0; rowId < NB_ROWS; rowId++)
-    {
-        for (int colId = 0; colId < NB_COLS; colId++)
-        {
-            FString componentNameTile = "Tile_" + FString::FromInt(rowId) + "_" + FString::FromInt(colId);
-            FString componentNameSelector = "Selector_" + FString::FromInt(rowId) + "_" + FString::FromInt(colId);
-
-            auto tileActor = CreateDefaultSubobject<UStaticMeshComponent>(*componentNameTile);
-            tileActor->SetupAttachment(RootComponent);
-            tileActor->SetStaticMesh(tileAsset);
-
-            auto selectorActor = CreateDefaultSubobject<UStaticMeshComponent>(*componentNameSelector);
-            selectorActor->SetupAttachment(tileActor);
-            selectorActor->SetStaticMesh(selectorAsset);
-        }
-    }
+    LoadCheckerMaterial();
+    SetupComponents();
 }
 
 void AChessBoard::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
-    createBoardLayout();
+    CreateBoardLayout();
+
+    mPiecesPlacement.SetNum(NB_SQUARES);
 }
 
 // Called when the game starts or when spawned
 void AChessBoard::BeginPlay()
 {
     Super::BeginPlay();
-    createTiles();
+    CreateTiles();
 
     for (auto & tile : mTiles)
     {
@@ -68,7 +42,7 @@ void AChessBoard::BeginPlay()
     }
 }
 
-void AChessBoard::loadCheckerMaterial()
+void AChessBoard::LoadCheckerMaterial()
 {
     static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerBlack.CheckerBlack'"));
     static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Board/Tile/CheckerWhite.CheckerWhite'"));
@@ -93,7 +67,7 @@ void AChessBoard::loadCheckerMaterial()
     }
 }
 
-void AChessBoard::createBoardLayout()
+void AChessBoard::CreateBoardLayout()
 {
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
@@ -143,12 +117,12 @@ void AChessBoard::createBoardLayout()
     }
 }
 
-void AChessBoard::createTiles()
+void AChessBoard::CreateTiles()
 {
     mTiles.RemoveAll([](ChessTile &)
-                    {
-                        return true;
-                    });
+    {
+        return true;
+    });
 
     auto root = GetRootComponent();
     auto children = root->GetAttachChildren();
@@ -161,6 +135,33 @@ void AChessBoard::createTiles()
             {
                 mTiles.Add({ tile, selector });
             }
+        }
+    }
+}
+
+void AChessBoard::SetupComponents()
+{
+    if (!RootComponent)
+    {
+        RootComponent = CreateDefaultSubobject<USceneComponent>(TEXT("Board"));
+    }
+
+    const int ROWS = 8;
+    const int COLS = 8;
+    for (int rowId = 0; rowId < ROWS; rowId++)
+    {
+        for (int colId = 0; colId < COLS; colId++)
+        {
+            FString componentNameTile = "Tile_" + FString::FromInt(rowId) + "_" + FString::FromInt(colId);
+            FString componentNameSelector = "Selector_" + FString::FromInt(rowId) + "_" + FString::FromInt(colId);
+
+            auto tileActor = CreateDefaultSubobject<UStaticMeshComponent>(*componentNameTile);
+            tileActor->SetupAttachment(RootComponent);
+            tileActor->SetStaticMesh(tileAsset);
+
+            auto selectorActor = CreateDefaultSubobject<UStaticMeshComponent>(*componentNameSelector);
+            selectorActor->SetupAttachment(tileActor);
+            selectorActor->SetStaticMesh(selectorAsset);
         }
     }
 }

@@ -39,14 +39,18 @@ public:
     virtual void BeginPlay() override;
 
 private:
-    void loadCheckerMaterial();
-    void createBoardLayout();
-    void createTiles();
+    void LoadCheckerMaterial();
+    void CreateBoardLayout();
+    void CreateTiles();
+    void SetupComponents();
 
 private:
     // commented for now...i'm not planing using anything dynamics for a long time
     UPROPERTY(VisibleAnywhere, Category = "Board")
         TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
+
+    UPROPERTY(EditAnywhere, Category = "Board")
+        TArray<int> mPiecesPlacement;      // where are the pieces
 
     const int NB_SQUARES = 64;
     TArray<ChessTile> mTiles;
