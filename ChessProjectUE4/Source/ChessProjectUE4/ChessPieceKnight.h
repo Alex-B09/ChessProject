@@ -12,4 +12,7 @@ UCLASS()
 class CHESSPROJECTUE4_API AChessPieceKnight : public AChessPiece
 {
     GENERATED_BODY()
+
+public:
+    AChessPieceKnight();
 };

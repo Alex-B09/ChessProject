@@ -34,6 +34,7 @@ private:
         PAWN = 1,
         ROOK,
         KNIGHT,
+        BISHOP,
         QUEEN,
         KING
     };

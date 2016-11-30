@@ -4,5 +4,13 @@
 #include "ChessPieceKing.h"
 
 
+AChessPieceKing::AChessPieceKing()
+{
+    static ConstructorHelpers::FObjectFinder<UStaticMesh> king(TEXT("StaticMesh'/Game/Art/Pieces/king.king'"));
 
+    if (king.Object)
+    {
+        mMesh = king.Object;
+    }
+}
 

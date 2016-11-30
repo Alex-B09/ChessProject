@@ -2,7 +2,13 @@
 
 #include "ChessProjectUE4.h"
 #include "ChessBoard.h"
+
 #include "ChessPiecePawn.h"
+#include "ChessPieceRook.h"
+#include "ChessPieceKnight.h"
+#include "ChessPieceBishop.h"
+#include "ChessPieceQueen.h"
+#include "ChessPieceKing.h"
 
 #include <Components/StaticMeshComponent.h>
 
@@ -51,21 +57,30 @@ void AChessBoard::BeginPlay()
 
         auto currentTile = mTiles[i];
 
+        auto spawnPosition = currentTile.GetGlobalPosition() + FVector(0.f, 0.f, 20.f);
+        auto spawnRotation = currentTile.GetGlobalRotation();
         switch (currentPiece)
         {
         case 0:
             // nothing
             break;
         case PAWN:
-            GetWorld()->SpawnActor<AChessPiecePawn>(currentTile.GetGlobalPosition(), currentTile.GetGlobalRotation());
+            GetWorld()->SpawnActor<AChessPiecePawn>(spawnPosition, spawnRotation);
             break;
         case ROOK:
+            GetWorld()->SpawnActor<AChessPieceRook>(spawnPosition, spawnRotation);
             break;
         case KNIGHT:
+            GetWorld()->SpawnActor<AChessPieceKnight>(spawnPosition, spawnRotation);
+            break;
+        case BISHOP:
+            GetWorld()->SpawnActor<AChessPieceBishop>(spawnPosition, spawnRotation);
             break;
         case QUEEN:
+            GetWorld()->SpawnActor<AChessPieceQueen>(spawnPosition, spawnRotation);
             break;
         case KING:
+            GetWorld()->SpawnActor<AChessPieceKing>(spawnPosition, spawnRotation);
             break;
         default:
             break;
