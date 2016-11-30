@@ -17,6 +17,8 @@ public:
     }
 
     void SetSelectorVisibility(bool isVisible);
+    FVector GetGlobalPosition() const;
+    FRotator GetGlobalRotation() const;
 
 private:
     UStaticMeshComponent * mTile;

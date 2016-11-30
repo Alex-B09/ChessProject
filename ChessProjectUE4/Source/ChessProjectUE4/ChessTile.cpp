@@ -7,3 +7,13 @@ void ChessTile::SetSelectorVisibility(bool isVisible)
 {
     mSelector->SetVisibility(isVisible);
 }
+
+FVector ChessTile::GetGlobalPosition() const
+{
+    return mTile->GetComponentLocation();
+}
+
+FRotator ChessTile::GetGlobalRotation() const
+{
+    return mTile->GetComponentRotation();
+}

@@ -14,6 +14,8 @@ public:
     // Sets default values for this actor's properties
     AChessPiece();
 
+    void OnConstruction(const FTransform& Transform) override;
+
     // Called when the game starts or when spawned
     virtual void BeginPlay() override;
 
@@ -32,4 +34,6 @@ protected:
     // Moral will represent the HP of the piece
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
         int mMorale = 10;
+
+    UStaticMesh * mMesh = nullptr;
 };

@@ -2,6 +2,7 @@
 
 #include "ChessProjectUE4.h"
 #include "ChessBoard.h"
+#include "ChessPiecePawn.h"
 
 #include <Components/StaticMeshComponent.h>
 
@@ -39,6 +40,36 @@ void AChessBoard::BeginPlay()
     for (auto & tile : mTiles)
     {
         tile.SetSelectorVisibility(false);
+    }
+
+    // set pieces to right spot
+    for (int i = 0; i < NB_SQUARES; ++i)
+    {
+        int currentPlacement = mPiecesPlacement[i];
+        int currentPiece = currentPlacement % 10;
+        int isBlack = currentPlacement > 10;
+
+        auto currentTile = mTiles[i];
+
+        switch (currentPiece)
+        {
+        case 0:
+            // nothing
+            break;
+        case PAWN:
+            GetWorld()->SpawnActor<AChessPiecePawn>(currentTile.GetGlobalPosition(), currentTile.GetGlobalRotation());
+            break;
+        case ROOK:
+            break;
+        case KNIGHT:
+            break;
+        case QUEEN:
+            break;
+        case KING:
+            break;
+        default:
+            break;
+        }
     }
 }
 

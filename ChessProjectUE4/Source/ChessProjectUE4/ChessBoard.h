@@ -13,7 +13,6 @@ class CHESSPROJECTUE4_API AChessBoard : public AActor
 {
     GENERATED_BODY()
 
-
         // The board will always be with the (queen) black rook piece at 0,0 (so top left)
         // and the (king) white rook at 7,7
 
@@ -29,6 +28,15 @@ class CHESSPROJECTUE4_API AChessBoard : public AActor
         col 7   WR  Wk  WB  WQ  WK  WB  Wk  WR
         */
 
+private:
+    enum PiecesEnum
+    {
+        PAWN = 1,
+        ROOK,
+        KNIGHT,
+        QUEEN,
+        KING
+    };
 
 public:
     // Sets default values for this actor's properties
