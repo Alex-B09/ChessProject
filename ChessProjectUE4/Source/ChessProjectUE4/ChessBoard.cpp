@@ -51,39 +51,53 @@ void AChessBoard::BeginPlay()
     // set pieces to right spot
     for (int i = 0; i < NB_SQUARES; ++i)
     {
+        AChessPiece * chessPiece = nullptr;
         int currentPlacement = mPiecesPlacement[i];
         int currentPiece = currentPlacement % 10;
-        int isBlack = currentPlacement > 10;
+        bool isBlack = currentPlacement > 10;
 
         auto currentTile = mTiles[i];
 
         auto spawnPosition = currentTile.GetGlobalPosition() + FVector(0.f, 0.f, 20.f);
         auto spawnRotation = currentTile.GetGlobalRotation();
+
+        //if (!isBlack)
+        //{
+        //    FRotator additionalRotation;
+        //    additionalRotation.Yaw = 180.f;
+        //    spawnRotation += additionalRotation;
+        //}
+
         switch (currentPiece)
         {
         case 0:
             // nothing
             break;
         case PAWN:
-            GetWorld()->SpawnActor<AChessPiecePawn>(spawnPosition, spawnRotation);
+            chessPiece = GetWorld()->SpawnActor<AChessPiecePawn>(spawnPosition, spawnRotation);
             break;
         case ROOK:
-            GetWorld()->SpawnActor<AChessPieceRook>(spawnPosition, spawnRotation);
+            chessPiece = GetWorld()->SpawnActor<AChessPieceRook>(spawnPosition, spawnRotation);
             break;
         case KNIGHT:
-            GetWorld()->SpawnActor<AChessPieceKnight>(spawnPosition, spawnRotation);
+            chessPiece = GetWorld()->SpawnActor<AChessPieceKnight>(spawnPosition, spawnRotation);
             break;
         case BISHOP:
-            GetWorld()->SpawnActor<AChessPieceBishop>(spawnPosition, spawnRotation);
+            chessPiece = GetWorld()->SpawnActor<AChessPieceBishop>(spawnPosition, spawnRotation);
             break;
         case QUEEN:
-            GetWorld()->SpawnActor<AChessPieceQueen>(spawnPosition, spawnRotation);
+            chessPiece = GetWorld()->SpawnActor<AChessPieceQueen>(spawnPosition, spawnRotation);
             break;
         case KING:
-            GetWorld()->SpawnActor<AChessPieceKing>(spawnPosition, spawnRotation);
+            chessPiece = GetWorld()->SpawnActor<AChessPieceKing>(spawnPosition, spawnRotation);
             break;
         default:
             break;
+        }
+
+        if (chessPiece)
+        {
+            chessPiece->setMaterial(isBlack);
         }
     }
 }

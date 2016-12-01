@@ -27,6 +27,13 @@ public:
     //      or when charging
     //      or when diying
 
+    void setMaterial(bool isBlack);
+
+private:
+    AChessPiece(FString modelPathName);
+
+    void loadMaterials();
+
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
         int mMovementRange = 0;

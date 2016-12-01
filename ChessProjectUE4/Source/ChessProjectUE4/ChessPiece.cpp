@@ -3,6 +3,12 @@
 #include "ChessProjectUE4.h"
 #include "ChessPiece.h"
 
+namespace
+{
+    UMaterial * blackPieceMaterial = nullptr;
+    UMaterial * whitePieceMaterial = nullptr;
+};
+
 
 // Sets default values
 AChessPiece::AChessPiece()
@@ -14,6 +20,8 @@ AChessPiece::AChessPiece()
     {
         RootComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PieceModel"));
     }
+
+    loadMaterials();
 }
 
 void AChessPiece::OnConstruction(const FTransform& Transform)
@@ -41,5 +49,39 @@ void AChessPiece::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
 
+}
+
+void AChessPiece::loadMaterials()
+{
+    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Pieces/PieceWhite.PieceWhite'"));
+    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Pieces/PieceBlack.PieceBlack'"));
+
+    if (blackMaterial.Object)
+    {
+        blackPieceMaterial = blackMaterial.Object;
+    }
+
+    if (whiteMaterial.Object)
+    {
+        whitePieceMaterial = whiteMaterial.Object;
+    }
+}
+
+void AChessPiece::setMaterial(bool isBlack)
+{
+    UMaterial * mat = nullptr;
+    if (isBlack)
+    {
+        mat = blackPieceMaterial;
+    }
+    else
+    {
+        mat = whitePieceMaterial;
+    }
+
+    if (auto modelComponent = Cast<UStaticMeshComponent>(RootComponent))
+    {
+        modelComponent->SetMaterial(0, mat);
+    }
 }
 
