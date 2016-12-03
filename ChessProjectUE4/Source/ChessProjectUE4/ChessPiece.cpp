@@ -53,8 +53,8 @@ void AChessPiece::Tick(float DeltaTime)
 
 void AChessPiece::loadMaterials()
 {
-    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Pieces/PieceWhite.PieceWhite'"));
-    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Pieces/PieceBlack.PieceBlack'"));
+    static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Pieces/PieceBlack.PieceBlack'"));
+    static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Pieces/PieceWhite.PieceWhite'"));
 
     if (blackMaterial.Object)
     {

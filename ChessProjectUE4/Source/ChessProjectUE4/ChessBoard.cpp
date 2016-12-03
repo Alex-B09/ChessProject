@@ -61,12 +61,13 @@ void AChessBoard::BeginPlay()
         auto spawnPosition = currentTile.GetGlobalPosition() + FVector(0.f, 0.f, 20.f);
         auto spawnRotation = currentTile.GetGlobalRotation();
 
-        //if (!isBlack)
-        //{
-        //    FRotator additionalRotation;
-        //    additionalRotation.Yaw = 180.f;
-        //    spawnRotation += additionalRotation;
-        //}
+        if (isBlack)
+        {
+            // personal note : if there is no values associated with Roll/Pitch/Yah,
+            //                  there will be garbage values
+            FRotator additionalRotation(0.f, 180.f, 0.f);
+            spawnRotation += additionalRotation;
+        }
 
         switch (currentPiece)
         {
