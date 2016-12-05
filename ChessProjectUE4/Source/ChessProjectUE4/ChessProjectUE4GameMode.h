@@ -6,14 +6,15 @@
 #include "ChessProjectUE4GameMode.generated.h"
 
 /**
- * 
+ *
  */
 UCLASS()
 class CHESSPROJECTUE4_API AChessProjectUE4GameMode : public AGameMode
 {
-	GENERATED_BODY()
-	
-	
-	
-	
+    GENERATED_BODY()
+
+public:
+    AChessProjectUE4GameMode();
+
+
 };

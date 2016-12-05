@@ -33,6 +33,7 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
     CreateBoardLayout();
+    ComputeCameraSettings();
 
     mPiecesPlacement.SetNum(NB_SQUARES);
 }
@@ -225,4 +226,60 @@ void AChessBoard::SetupComponents()
             selectorActor->SetStaticMesh(selectorAsset);
         }
     }
+
+    auto springArm = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraArm"));
+    auto camera = CreateDefaultSubobject<UCameraComponent>(TEXT("Camera"));
+
+    if (springArm && camera)
+    {
+        springArm->SetupAttachment(RootComponent);
+        camera->SetupAttachment(springArm);
+    }
+}
+
+void AChessBoard::ComputeCameraSettings()
+{
+    ComputeCameraLocation();
+
+    auto root = GetRootComponent();
+    auto child = root->GetChildComponent(NB_SQUARES); // 0 based...so the 64th should be the arm
+
+    if (auto springArm = Cast<USpringArmComponent>(child))
+    {
+        springArm->SetRelativeLocation(mWhiteLookLocation);
+        springArm->bAbsoluteRotation = true; // Don't want arm to rotate when character does
+        springArm->TargetArmLength = 3000.f;
+        springArm->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
+        springArm->bDoCollisionTest = false; // Don't want to pull camera in when collides with level
+
+        if (auto camera = Cast<UCameraComponent>(springArm->GetChildComponent(0)))
+        {
+            camera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
+        }
+    }
+
+    mRotationWhite = FRotator(0.f, 0.f, 0.f);
+    mRotationWhite = FRotator(0.f, 0.f, 180.f);
+}
+
+void AChessBoard::ComputeCameraLocation()
+{
+    //get Position of 35th element and 26th element
+    auto root = RootComponent;
+
+    auto firstChild = root->GetChildComponent(27);
+    auto secondChild = root->GetChildComponent(36);
+
+    auto firstChildLocation = firstChild->GetRelativeTransform().GetLocation();
+    auto secondChildLocation = secondChild->GetRelativeTransform().GetLocation();
+
+    FVector averageLocation = (firstChildLocation + secondChildLocation) / 2;
+
+    mCenterLocation = averageLocation;
+
+    FVector whiteDelta(-400.f, 0.f, 0.f);
+    mWhiteLookLocation = mCenterLocation + whiteDelta;
+
+    FVector blackDelta(400.f, 0.f, 0.f);
+    mBlackLookLocation = mCenterLocation + blackDelta;
 }

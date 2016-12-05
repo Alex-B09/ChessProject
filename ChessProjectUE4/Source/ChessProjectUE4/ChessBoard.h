@@ -52,6 +52,8 @@ private:
     void CreateBoardLayout();
     void CreateTiles();
     void SetupComponents();
+    void ComputeCameraSettings();
+    void ComputeCameraLocation();
 
 private:
     // commented for now...i'm not planing using anything dynamics for a long time
@@ -60,6 +62,13 @@ private:
 
     UPROPERTY(EditAnywhere, Category = "Board")
         TArray<int> mPiecesPlacement;      // where are the pieces
+
+    FVector mCenterLocation;
+    FVector mWhiteLookLocation;
+    FVector mBlackLookLocation;
+
+    FRotator mRotationWhite;
+    FRotator mRotationBlack;
 
     const int NB_SQUARES = 64;
     TArray<ChessTile> mTiles;
