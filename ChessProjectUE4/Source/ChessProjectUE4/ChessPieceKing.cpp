@@ -5,12 +5,7 @@
 
 
 AChessPieceKing::AChessPieceKing()
+    :AChessPiece(TEXT("StaticMesh'/Game/Art/Pieces/king.king'"))
+
 {
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> king(TEXT("StaticMesh'/Game/Art/Pieces/king.king'"));
-
-    if (king.Object)
-    {
-        mMesh = king.Object;
-    }
 }
-

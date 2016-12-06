@@ -11,8 +11,7 @@ class CHESSPROJECTUE4_API AChessPiece : public AActor
     GENERATED_BODY()
 
 public:
-    // Sets default values for this actor's properties
-    AChessPiece();
+    AChessPiece() { }
 
     void OnConstruction(const FTransform& Transform) override;
 
@@ -29,9 +28,10 @@ public:
 
     void setMaterial(bool isBlack);
 
-private:
+protected:
     AChessPiece(FString modelPathName);
 
+private:
     void loadMaterials();
 
 protected:

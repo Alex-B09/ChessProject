@@ -4,13 +4,8 @@
 #include "ChessPieceBishop.h"
 
 AChessPieceBishop::AChessPieceBishop()
+    :AChessPiece(TEXT("StaticMesh'/Game/Art/Pieces/bishop.bishop'"))
 {
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> bishop(TEXT("StaticMesh'/Game/Art/Pieces/bishop.bishop'"));
-
-    if (bishop.Object)
-    {
-        mMesh = bishop.Object;
-    }
 }
 
 

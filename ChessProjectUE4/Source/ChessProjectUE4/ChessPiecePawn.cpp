@@ -4,11 +4,6 @@
 #include "ChessPiecePawn.h"
 
 AChessPiecePawn::AChessPiecePawn()
+    :AChessPiece(TEXT("StaticMesh'/Game/Art/Pieces/pawn.pawn'"))
 {
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> pawn(TEXT("StaticMesh'/Game/Art/Pieces/pawn.pawn'"));
-
-    if (pawn.Object)
-    {
-        mMesh = pawn.Object;
-    }
 }

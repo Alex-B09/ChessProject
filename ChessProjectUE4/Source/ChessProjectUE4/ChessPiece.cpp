@@ -9,10 +9,10 @@ namespace
     UMaterial * whitePieceMaterial = nullptr;
 };
 
-
-// Sets default values
-AChessPiece::AChessPiece()
+AChessPiece::AChessPiece(FString modelPathName)
 {
+    ConstructorHelpers::FObjectFinder<UStaticMesh> asset(*modelPathName);
+
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = true;
 
@@ -22,6 +22,11 @@ AChessPiece::AChessPiece()
     }
 
     loadMaterials();
+
+    if (asset.Object)
+    {
+        mMesh = asset.Object;
+    }
 }
 
 void AChessPiece::OnConstruction(const FTransform& Transform)

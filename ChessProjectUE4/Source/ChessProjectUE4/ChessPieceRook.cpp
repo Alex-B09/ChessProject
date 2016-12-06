@@ -5,11 +5,6 @@
 
 
 AChessPieceRook::AChessPieceRook()
+    :AChessPiece(TEXT("StaticMesh'/Game/Art/Pieces/rook.rook'"))
 {
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> rook(TEXT("StaticMesh'/Game/Art/Pieces/rook.rook'"));
-
-    if (rook.Object)
-    {
-        mMesh = rook.Object;
-    }
 }

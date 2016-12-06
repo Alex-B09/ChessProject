@@ -4,13 +4,9 @@
 #include "ChessPieceQueen.h"
 
 AChessPieceQueen::AChessPieceQueen()
-{
-    static ConstructorHelpers::FObjectFinder<UStaticMesh> queen(TEXT("StaticMesh'/Game/Art/Pieces/queen.queen'"));
+    :AChessPiece(TEXT("StaticMesh'/Game/Art/Pieces/queen.queen'"))
 
-    if (queen.Object)
-    {
-        mMesh = queen.Object;
-    }
+{
 }
 
 
