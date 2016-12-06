@@ -45,7 +45,10 @@ public:
 
     void OnConstruction(const FTransform& Transform) override;
     // Called when the game starts or when spawned
-    virtual void BeginPlay() override;
+    void BeginPlay() override;
+    void Tick(float DeltaSeconds) override;
+
+    void switchCamera(bool lookingWhite);
 
 private:
     void LoadCheckerMaterial();
@@ -54,6 +57,8 @@ private:
     void SetupComponents();
     void ComputeCameraSettings();
     void ComputeCameraLocation();
+
+    USpringArmComponent * GetSpringArm();
 
 private:
     // commented for now...i'm not planing using anything dynamics for a long time
@@ -64,11 +69,19 @@ private:
         TArray<int> mPiecesPlacement;      // where are the pieces
 
     FVector mCenterLocation;
-    FVector mWhiteLookLocation;
-    FVector mBlackLookLocation;
 
-    FRotator mRotationWhite;
-    FRotator mRotationBlack;
+    FVector mWhiteLookAtLocation;
+    FVector mBlackLookAtLocation;
+    FRotator mWhiteLookAtRotation;
+    FRotator mBlackLookAtRotation;
+
+    FVector mCurrentLookAtLocation;
+    FRotator mCurrentLookAtRotation;
+    FVector mTargetLookAtLocation;
+    FRotator mTargetLookAtRotation;
+
+    float mTimeSwitching = 0.0f;
+    bool mIsSwitchingCamera = false;
 
     const int NB_SQUARES = 64;
     TArray<ChessTile> mTiles;

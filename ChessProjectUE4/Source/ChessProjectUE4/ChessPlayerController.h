@@ -14,8 +14,9 @@ class CHESSPROJECTUE4_API AChessPlayerController : public APlayerController
     GENERATED_BODY()
 
 public:
-
     virtual void BeginPlay() override;
+    void SetupInputComponent() override;
 
-
+private:
+    void testCamera();
 };

@@ -42,6 +42,7 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
 void AChessBoard::BeginPlay()
 {
     Super::BeginPlay();
+    ComputeCameraSettings();
     CreateTiles();
 
     for (auto & tile : mTiles)
@@ -100,6 +101,29 @@ void AChessBoard::BeginPlay()
         if (chessPiece)
         {
             chessPiece->setMaterial(isBlack);
+        }
+    }
+}
+
+void AChessBoard::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+
+    if (mIsSwitchingCamera)
+    {
+        auto springArm = GetSpringArm();
+        auto location = springArm->GetRelativeTransform().GetLocation();
+        auto rotation = springArm->RelativeRotation;
+
+        mTimeSwitching += (DeltaSeconds / 2); // a bit slower 
+        auto newRotation = FMath::Lerp(rotation, mTargetLookAtRotation, mTimeSwitching);
+        auto newLocation = FMath::Lerp(location, mTargetLookAtLocation, mTimeSwitching);
+
+        springArm->SetRelativeLocationAndRotation(newLocation, newRotation);
+
+        if (mTimeSwitching >= 1.0f)
+        {
+            mIsSwitchingCamera = false;
         }
     }
 }
@@ -241,15 +265,14 @@ void AChessBoard::ComputeCameraSettings()
 {
     ComputeCameraLocation();
 
-    auto root = GetRootComponent();
-    auto child = root->GetChildComponent(NB_SQUARES); // 0 based...so the 64th should be the arm
+    auto child = GetSpringArm();
 
     if (auto springArm = Cast<USpringArmComponent>(child))
     {
-        springArm->SetRelativeLocation(mWhiteLookLocation);
+        springArm->SetRelativeLocation(mCurrentLookAtLocation);
         springArm->bAbsoluteRotation = true; // Don't want arm to rotate when character does
         springArm->TargetArmLength = 3000.f;
-        springArm->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
+        springArm->SetRelativeRotation(mCurrentLookAtRotation);
         springArm->bDoCollisionTest = false; // Don't want to pull camera in when collides with level
 
         if (auto camera = Cast<UCameraComponent>(springArm->GetChildComponent(0)))
@@ -257,9 +280,6 @@ void AChessBoard::ComputeCameraSettings()
             camera->bUsePawnControlRotation = false; // Camera does not rotate relative to arm
         }
     }
-
-    mRotationWhite = FRotator(0.f, 0.f, 0.f);
-    mRotationWhite = FRotator(0.f, 0.f, 180.f);
 }
 
 void AChessBoard::ComputeCameraLocation()
@@ -278,8 +298,36 @@ void AChessBoard::ComputeCameraLocation()
     mCenterLocation = averageLocation;
 
     FVector whiteDelta(-400.f, 0.f, 0.f);
-    mWhiteLookLocation = mCenterLocation + whiteDelta;
+    mWhiteLookAtLocation = mCenterLocation + whiteDelta;
 
     FVector blackDelta(400.f, 0.f, 0.f);
-    mBlackLookLocation = mCenterLocation + blackDelta;
+    mBlackLookAtLocation = mCenterLocation + blackDelta;
+
+    mWhiteLookAtRotation = FRotator(0.f, 0.f, 0.f) + FRotator(-45.f, 0.f, 0.f);
+    mBlackLookAtRotation = FRotator(0.f, 180.f, 0.f) + FRotator(-45.f, 0.f, 0.f);
+
+    mCurrentLookAtLocation = mWhiteLookAtLocation;
+    mCurrentLookAtRotation = mWhiteLookAtRotation;
 }
+
+void AChessBoard::switchCamera(bool lookingWhite)
+{
+    if (lookingWhite)
+    {
+        mTargetLookAtRotation = mWhiteLookAtRotation;
+        mTargetLookAtLocation = mWhiteLookAtLocation;
+    }
+    else
+    {
+        mTargetLookAtRotation = mBlackLookAtRotation;
+        mTargetLookAtLocation = mBlackLookAtLocation;
+    }
+    mTimeSwitching = 0.0f;
+    mIsSwitchingCamera = true;
+}
+
+USpringArmComponent * AChessBoard::GetSpringArm()
+{
+    return Cast<USpringArmComponent>(RootComponent->GetChildComponent(NB_SQUARES));
+}
+
