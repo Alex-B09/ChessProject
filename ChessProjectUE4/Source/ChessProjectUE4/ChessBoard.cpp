@@ -115,7 +115,7 @@ void AChessBoard::Tick(float DeltaSeconds)
         auto location = springArm->GetRelativeTransform().GetLocation();
         auto rotation = springArm->RelativeRotation;
 
-        mTimeSwitching += (DeltaSeconds / 2); // a bit slower 
+        mTimeSwitching += (DeltaSeconds / 3); // a bit slower 
         auto newRotation = FMath::Lerp(rotation, mTargetLookAtRotation, mTimeSwitching);
         auto newLocation = FMath::Lerp(location, mTargetLookAtLocation, mTimeSwitching);
 
