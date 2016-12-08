@@ -4,6 +4,7 @@
 #include "ChessPlayerController.h"
 
 #include "ChessBoard.h"
+#include "ChessPiece.h"
 
 
 void AChessPlayerController::BeginPlay()
@@ -18,6 +19,10 @@ void AChessPlayerController::BeginPlay()
             SetViewTarget(foundActors[0]);
         }
     }
+
+    bShowMouseCursor = true;
+    bEnableClickEvents = true;
+    bEnableMouseOverEvents = true;
 }
 
 void AChessPlayerController::SetupInputComponent()
@@ -25,6 +30,7 @@ void AChessPlayerController::SetupInputComponent()
     Super::SetupInputComponent();
 
     InputComponent->BindKey(EKeys::M, IE_Released, this, &AChessPlayerController::testCamera);
+    InputComponent->BindKey(EKeys::LeftMouseButton, IE_Pressed, this, &AChessPlayerController::TestMouseClick);
 }
 
 void AChessPlayerController::testCamera()
@@ -42,6 +48,22 @@ void AChessPlayerController::testCamera()
                 board->switchCamera(optionCamera);
                 optionCamera = !optionCamera;
             }
+        }
+    }
+}
+
+void AChessPlayerController::TestMouseClick()
+{
+    // Trace to see what is under the mouse cursor
+    FHitResult Hit;
+    GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+
+    if (Hit.bBlockingHit)
+    {
+        auto actorHit = Hit.Actor;
+        if (auto chessPiece = Cast<AChessPiece>(actorHit.Get()))
+        {
+            UE_LOG(LogTemp, Warning, TEXT("%s"), *chessPiece->GetName());
         }
     }
 }
