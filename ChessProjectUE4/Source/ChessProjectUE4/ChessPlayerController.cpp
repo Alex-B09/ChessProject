@@ -63,7 +63,14 @@ void AChessPlayerController::TestMouseClick()
         auto actorHit = Hit.Actor;
         if (auto chessPiece = Cast<AChessPiece>(actorHit.Get()))
         {
-            UE_LOG(LogTemp, Warning, TEXT("%s"), *chessPiece->GetName());
+            if (mSelectedPiece && mSelectedPiece != chessPiece)
+            {
+                mSelectedPiece->setSelected(false);
+            }
+            mSelectedPiece = chessPiece;
+            mSelectedPiece->setSelected(true);
+
+            UE_LOG(LogTemp, Warning, TEXT("Selected : %s"), *chessPiece->GetName());
         }
     }
 }

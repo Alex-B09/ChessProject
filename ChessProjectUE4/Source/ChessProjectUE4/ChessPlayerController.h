@@ -3,6 +3,9 @@
 #pragma once
 
 #include "GameFramework/PlayerController.h"
+
+#include "ChessPiece.h"
+
 #include "ChessPlayerController.generated.h"
 
 /**
@@ -20,4 +23,6 @@ public:
 private:
     void testCamera();
     void TestMouseClick();
+
+    AChessPiece * mSelectedPiece = nullptr;
 };

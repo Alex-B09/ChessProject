@@ -27,12 +27,16 @@ public:
     //      or when diying
 
     void setMaterial(bool isBlack);
+    void setSelected(bool isSelected);
 
 protected:
     AChessPiece(FString modelPathName);
 
 private:
     void loadMaterials();
+
+    UStaticMeshComponent * getMeshRoot() const;
+    UStaticMeshComponent * getMeshOutliner() const;
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
