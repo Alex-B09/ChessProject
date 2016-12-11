@@ -5,7 +5,10 @@
 
 void ChessTile::SetSelectorVisibility(bool isVisible)
 {
-    mSelector->SetVisibility(isVisible);
+    if (mSelector)
+    {
+        mSelector->SetVisibility(isVisible);
+    }
 }
 
 FVector ChessTile::GetGlobalPosition() const

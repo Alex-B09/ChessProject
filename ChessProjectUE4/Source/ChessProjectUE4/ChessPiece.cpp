@@ -15,7 +15,8 @@ AChessPiece::AChessPiece(FString modelPathName)
     ConstructorHelpers::FObjectFinder<UStaticMesh> asset(*modelPathName);
 
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+    PrimaryActorTick.bCanEverTick = false;
+    SetActorEnableCollision(false);
 
     if (!RootComponent)
     {
@@ -44,13 +45,15 @@ void AChessPiece::OnConstruction(const FTransform& Transform)
         if (auto modelComponent = getMeshRoot())
         {
             modelComponent->SetStaticMesh(mMesh);
+            modelComponent->bRenderCustomDepth = true;
 
             if (auto outliner = getMeshOutliner())
             {
                 outliner->SetStaticMesh(mMesh);
 
+                const float SCALE = 1.02f;
                 FTransform transform;
-                transform.SetScale3D(FVector(1.05f, 1.05f, 1.05f));
+                transform.SetScale3D(FVector(SCALE, SCALE, SCALE));
                 outliner->SetRelativeTransform(transform);
             }
         }
