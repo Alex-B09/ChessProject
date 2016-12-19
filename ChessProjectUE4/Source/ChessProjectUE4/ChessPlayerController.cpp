@@ -55,12 +55,16 @@ void AChessPlayerController::testCamera()
 void AChessPlayerController::TestMouseClick()
 {
     // Trace to see what is under the mouse cursor
-    FHitResult Hit;
-    GetHitResultUnderCursor(ECC_Visibility, false, Hit);
+    FHitResult hit;
+    GetHitResultUnderCursor(ECC_Visibility, true, hit);
 
-    if (Hit.bBlockingHit)
+    auto test1 = hit.Component;
+    auto test2 = hit.Distance;
+
+
+    if (hit.bBlockingHit)
     {
-        auto actorHit = Hit.Actor;
+        auto actorHit = hit.Actor;
         if (auto chessPiece = Cast<AChessPiece>(actorHit.Get()))
         {
             if (mSelectedPiece && mSelectedPiece != chessPiece)
