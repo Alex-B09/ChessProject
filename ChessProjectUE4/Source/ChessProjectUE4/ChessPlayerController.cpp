@@ -29,11 +29,11 @@ void AChessPlayerController::SetupInputComponent()
 {
     Super::SetupInputComponent();
 
-    InputComponent->BindKey(EKeys::M, IE_Released, this, &AChessPlayerController::testCamera);
+    InputComponent->BindKey(EKeys::M, IE_Released, this, &AChessPlayerController::rotateCamera);
     InputComponent->BindKey(EKeys::LeftMouseButton, IE_Pressed, this, &AChessPlayerController::TestMouseClick);
 }
 
-void AChessPlayerController::testCamera()
+void AChessPlayerController::rotateCamera()
 {
     if (auto world = GetWorld())
     {

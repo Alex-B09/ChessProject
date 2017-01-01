@@ -3,12 +3,7 @@
 #include "ChessProjectUE4.h"
 #include "ChessBoard.h"
 
-#include "ChessPiecePawn.h"
-#include "ChessPieceRook.h"
-#include "ChessPieceKnight.h"
-#include "ChessPieceBishop.h"
-#include "ChessPieceQueen.h"
-#include "ChessPieceKing.h"
+
 
 #include <Components/StaticMeshComponent.h>
 
@@ -35,7 +30,7 @@ void AChessBoard::OnConstruction(const FTransform& Transform)
     CreateBoardLayout();
     ComputeCameraSettings();
 
-    mPiecesPlacement.SetNum(NB_SQUARES);
+    mPiecesPlacement.SetNum(mNbTiles);
 }
 
 // Called when the game starts or when spawned
@@ -43,66 +38,6 @@ void AChessBoard::BeginPlay()
 {
     Super::BeginPlay();
     ComputeCameraSettings();
-    CreateTiles();
-
-    for (auto & tile : mTiles)
-    {
-        tile.SetSelectorVisibility(false);
-    }
-
-    // set pieces to right spot
-    for (int i = 0; i < NB_SQUARES; ++i)
-    {
-        AChessPiece * chessPiece = nullptr;
-        int currentPlacement = mPiecesPlacement[i];
-        int currentPiece = currentPlacement % 10;
-        bool isBlack = currentPlacement > 10;
-
-        auto currentTile = mTiles[i];
-
-        auto spawnPosition = currentTile.GetGlobalPosition() + FVector(0.f, 0.f, 20.f);
-        auto spawnRotation = currentTile.GetGlobalRotation();
-
-        if (isBlack)
-        {
-            // personal note : if there is no values associated with Roll/Pitch/Yah,
-            //                  there will be garbage values
-            FRotator additionalRotation(0.f, 180.f, 0.f);
-            spawnRotation += additionalRotation;
-        }
-
-        switch (currentPiece)
-        {
-        case 0:
-            // nothing
-            break;
-        case PAWN:
-            chessPiece = GetWorld()->SpawnActor<AChessPiecePawn>(spawnPosition, spawnRotation);
-            break;
-        case ROOK:
-            chessPiece = GetWorld()->SpawnActor<AChessPieceRook>(spawnPosition, spawnRotation);
-            break;
-        case KNIGHT:
-            chessPiece = GetWorld()->SpawnActor<AChessPieceKnight>(spawnPosition, spawnRotation);
-            break;
-        case BISHOP:
-            chessPiece = GetWorld()->SpawnActor<AChessPieceBishop>(spawnPosition, spawnRotation);
-            break;
-        case QUEEN:
-            chessPiece = GetWorld()->SpawnActor<AChessPieceQueen>(spawnPosition, spawnRotation);
-            break;
-        case KING:
-            chessPiece = GetWorld()->SpawnActor<AChessPieceKing>(spawnPosition, spawnRotation);
-            break;
-        default:
-            break;
-        }
-
-        if (chessPiece)
-        {
-            chessPiece->setMaterial(isBlack);
-        }
-    }
 }
 
 void AChessBoard::Tick(float DeltaSeconds)
@@ -203,26 +138,14 @@ void AChessBoard::CreateBoardLayout()
     }
 }
 
-void AChessBoard::CreateTiles()
+int AChessBoard::getNbTiles()const
 {
-    mTiles.RemoveAll([](ChessTile &)
-    {
-        return true;
-    });
+    return mNbTiles;
+}
 
-    auto root = GetRootComponent();
-    auto children = root->GetAttachChildren();
-
-    for (auto child : children)
-    {
-        if (auto tile = Cast<UStaticMeshComponent>(child))
-        {
-            if (auto selector = Cast<UStaticMeshComponent>(tile->GetChildComponent(0)))
-            {
-                mTiles.Add({ tile, selector });
-            }
-        }
-    }
+TArray<int> AChessBoard::getPiecesPlacement() const
+{
+    return mPiecesPlacement;
 }
 
 void AChessBoard::SetupComponents()
@@ -328,6 +251,6 @@ void AChessBoard::switchCamera(bool lookingWhite)
 
 USpringArmComponent * AChessBoard::GetSpringArm()
 {
-    return Cast<USpringArmComponent>(RootComponent->GetChildComponent(NB_SQUARES));
+    return Cast<USpringArmComponent>(RootComponent->GetChildComponent(mNbTiles));
 }
 

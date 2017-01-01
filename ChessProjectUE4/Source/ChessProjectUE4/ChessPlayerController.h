@@ -21,7 +21,7 @@ public:
     void SetupInputComponent() override;
 
 private:
-    void testCamera();
+    void rotateCamera();
     void TestMouseClick();
 
     AChessPiece * mSelectedPiece = nullptr;

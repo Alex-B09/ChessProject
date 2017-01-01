@@ -259,7 +259,9 @@
     <None Include="..\..\Config\DefaultEditor.ini" />
     <None Include="..\..\Config\DefaultEngine.ini" />
     <None Include="..\..\Config\DefaultGame.ini" />
+    <ClCompile Include="..\..\Source\ChessProjectUE4\BoardLogic.cpp" />
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessBoard.cpp" />
+    <ClInclude Include="..\..\Source\ChessProjectUE4\BoardLogic.h" />
     <ClInclude Include="..\..\Source\ChessProjectUE4\ChessBoard.h" />
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPiece.cpp" />
     <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPiece.h" />

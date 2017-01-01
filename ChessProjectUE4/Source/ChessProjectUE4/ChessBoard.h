@@ -28,17 +28,6 @@ class CHESSPROJECTUE4_API AChessBoard : public AActor
         col 7   WR  Wk  WB  WQ  WK  WB  Wk  WR
         */
 
-private:
-    enum PiecesEnum
-    {
-        PAWN = 1,
-        ROOK,
-        KNIGHT,
-        BISHOP,
-        QUEEN,
-        KING
-    };
-
 public:
     // Sets default values for this actor's properties
     AChessBoard();
@@ -50,10 +39,12 @@ public:
 
     void switchCamera(bool lookingWhite);
 
+    int getNbTiles() const;
+    TArray<int> getPiecesPlacement() const;
+
 private:
     void LoadCheckerMaterial();
     void CreateBoardLayout();
-    void CreateTiles();
     void SetupComponents();
     void ComputeCameraSettings();
     void ComputeCameraLocation();
@@ -61,12 +52,11 @@ private:
     USpringArmComponent * GetSpringArm();
 
 private:
-    // commented for now...i'm not planing using anything dynamics for a long time
-    UPROPERTY(VisibleAnywhere, Category = "Board")
-        TArray<AChessPiece*> mBoardPieces;      // the owner of the all the pieces
-
     UPROPERTY(EditAnywhere, Category = "Board")
         TArray<int> mPiecesPlacement;      // where are the pieces
+
+    UPROPERTY(EditAnywhere, Category = "Board")
+        int mNbTiles = 64;      // must be a square of a number
 
     FVector mCenterLocation;
 
@@ -82,7 +72,4 @@ private:
 
     float mTimeSwitching = 0.0f;
     bool mIsSwitchingCamera = false;
-
-    const int NB_SQUARES = 64;
-    TArray<ChessTile> mTiles;
 };

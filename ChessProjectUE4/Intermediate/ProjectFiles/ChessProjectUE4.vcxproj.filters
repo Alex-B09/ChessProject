@@ -100,9 +100,15 @@
     <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPlayerController.h">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\BoardLogic.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPlayerController.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\BoardLogic.cpp">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClCompile>
   </ItemGroup>
