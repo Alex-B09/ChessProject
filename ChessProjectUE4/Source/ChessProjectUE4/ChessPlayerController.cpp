@@ -2,6 +2,7 @@
 
 #include "ChessProjectUE4.h"
 #include "ChessPlayerController.h"
+#include "ChessProjectUE4GameMode.h"
 
 #include "ChessBoard.h"
 #include "ChessPiece.h"
@@ -35,20 +36,9 @@ void AChessPlayerController::SetupInputComponent()
 
 void AChessPlayerController::rotateCamera()
 {
-    if (auto world = GetWorld())
+    if (auto gameMode = Cast<AChessProjectUE4GameMode>(GetWorld()->GetAuthGameMode()))
     {
-        TArray<AActor*> foundActors;
-        UGameplayStatics::GetAllActorsOfClass(world, AChessBoard::StaticClass(), foundActors);
-
-        if (foundActors.Num() > 0)
-        {
-            if (auto board = Cast<AChessBoard>(foundActors[0]))
-            {
-                static bool optionCamera = false;
-                board->switchCamera(optionCamera);
-                optionCamera = !optionCamera;
-            }
-        }
+        gameMode->EndCurrentPlayerTurn();
     }
 }
 

@@ -18,12 +18,22 @@ class CHESSPROJECTUE4_API AChessProjectUE4GameMode : public AGameModeBase
 
 private:
     std::unique_ptr<BoardLogic> mBoardLogic;
+    bool mIsWhiteTurn = true;
 
 public:
     AChessProjectUE4GameMode();
 
     void StartPlay() override;
 
+    void EndCurrentPlayerTurn();
+
 private:
     AChessBoard * getChessBoard() const;
+
+    void EndOfTurn();
+
+    // set the pipeline to look at the right place
+    void LookAtSide();
+    void LookAtCenter();
+
 };

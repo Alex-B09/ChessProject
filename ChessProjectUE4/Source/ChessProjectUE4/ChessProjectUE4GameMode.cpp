@@ -15,8 +15,7 @@ AChessProjectUE4GameMode::AChessProjectUE4GameMode()
 
 void AChessProjectUE4GameMode::StartPlay()
 {
-    auto board = getChessBoard();
-    if (board)
+    if (auto board = getChessBoard())
     {
         mBoardLogic = std::make_unique<BoardLogic>(board, GetWorld());
     }
@@ -43,4 +42,35 @@ AChessBoard * AChessProjectUE4GameMode::getChessBoard() const
         UE_LOG(LogTemp, Warning, TEXT("AChessProjectUE4GameMode::getChessBoard() board not found"));
     }
     return board;
+}
+
+void AChessProjectUE4GameMode::EndCurrentPlayerTurn()
+{
+    mIsWhiteTurn = !mIsWhiteTurn;
+
+    if (mIsWhiteTurn)
+    {
+        EndOfTurn();
+    }
+    LookAtSide();
+}
+
+void AChessProjectUE4GameMode::EndOfTurn()
+{
+    // TODO
+    // this is where we will move the pieces
+}
+
+void AChessProjectUE4GameMode::LookAtSide()
+{
+    if (auto board = getChessBoard())
+    {
+        board->switchCamera(mIsWhiteTurn);
+    }
+}
+
+void AChessProjectUE4GameMode::LookAtCenter()
+{
+    // TODO
+    // set camera from the middle to see the moves
 }
