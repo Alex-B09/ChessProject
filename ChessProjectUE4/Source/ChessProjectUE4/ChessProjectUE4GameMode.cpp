@@ -17,7 +17,7 @@ void AChessProjectUE4GameMode::StartPlay()
 {
     if (auto board = getChessBoard())
     {
-        mBoardLogic = std::make_unique<BoardLogic>(board, GetWorld());
+        mBoardLogic = std::make_unique<BoardLogic>(board, GetWorld(), mSpawner);
     }
 
     Super::StartPlay();

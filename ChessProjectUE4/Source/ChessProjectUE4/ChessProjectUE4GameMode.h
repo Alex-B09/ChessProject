@@ -4,6 +4,7 @@
 
 #include "GameFramework/GameModeBase.h"
 #include "BoardLogic.h"
+#include "PieceSpawner.h"
 
 #include <memory>
 #include "ChessProjectUE4GameMode.generated.h"
@@ -19,6 +20,7 @@ class CHESSPROJECTUE4_API AChessProjectUE4GameMode : public AGameModeBase
 private:
     std::unique_ptr<BoardLogic> mBoardLogic;
     bool mIsWhiteTurn = true;
+    PieceSpawner mSpawner;
 
 public:
     AChessProjectUE4GameMode();

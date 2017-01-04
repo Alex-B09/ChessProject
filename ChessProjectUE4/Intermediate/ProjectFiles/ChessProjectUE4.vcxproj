@@ -253,6 +253,8 @@
     <NMakeOutput>..\..\Binaries\Win64\ChessProjectUE4-Win64-Shipping.exe</NMakeOutput>
   </PropertyGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\PieceSpawner.cpp" />
+    <ClInclude Include="..\..\Source\ChessProjectUE4\PieceSpawner.h" />
     <None Include="..\..\ChessProjectUE4.uproject" />
     <None Include="..\..\Source\ChessProjectUE4.Target.cs" />
     <None Include="..\..\Source\ChessProjectUE4Editor.Target.cs" />
@@ -265,18 +267,8 @@
     <ClInclude Include="..\..\Source\ChessProjectUE4\ChessBoard.h" />
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPiece.cpp" />
     <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPiece.h" />
-    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceBishop.cpp" />
-    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceBishop.h" />
-    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceKing.cpp" />
-    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceKing.h" />
-    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceKnight.cpp" />
-    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceKnight.h" />
-    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPiecePawn.cpp" />
-    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPiecePawn.h" />
-    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceQueen.cpp" />
-    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceQueen.h" />
-    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceRook.cpp" />
-    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceRook.h" />
+    <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceLogic.cpp" />
+    <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceLogic.h" />
     <None Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.Build.cs" />
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPlayerController.cpp" />
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessProjectUE4.cpp" />

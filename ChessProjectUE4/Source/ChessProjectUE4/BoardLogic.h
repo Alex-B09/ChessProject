@@ -5,6 +5,7 @@
 #include "ChessBoard.h"
 #include "ChessPiece.h"
 #include "ChessTile.h"
+#include "PieceSpawner.h"
 
 /**
  * BoardLogic
@@ -15,20 +16,8 @@
         - pieces
  */
 
-
-
 class CHESSPROJECTUE4_API BoardLogic
 {
-    enum PiecesEnum
-    {
-        PAWN = 1,
-        ROOK,
-        KNIGHT,
-        BISHOP,
-        QUEEN,
-        KING
-    };
-
     //TArray<AChessPiece*> mPieces;
     AChessBoard* mBoardActor;       // non-owning ptr
     UWorld* mWorld;                 // non-owning ptr
@@ -37,9 +26,9 @@ class CHESSPROJECTUE4_API BoardLogic
 
 public:
     BoardLogic() = default;
-    BoardLogic(AChessBoard* board, UWorld* world);
+    BoardLogic(AChessBoard* board, UWorld* world, PieceSpawner & spawner);
 
 private:
     void CreateTiles();
-    void PlacePieces();
+    void PlacePieces(PieceSpawner & spawner);
 };

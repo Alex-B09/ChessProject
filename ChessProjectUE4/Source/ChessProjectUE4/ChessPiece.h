@@ -3,6 +3,7 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "ChessProjectUE4.h"
 #include "ChessPiece.generated.h"
 
 UCLASS()
@@ -11,7 +12,7 @@ class CHESSPROJECTUE4_API AChessPiece : public AActor
     GENERATED_BODY()
 
 public:
-    AChessPiece() { }
+    AChessPiece();
 
     void OnConstruction(const FTransform& Transform) override;
 
@@ -29,9 +30,6 @@ public:
     void setMaterial(bool isBlack);
     void setSelected(bool isSelected);
 
-protected:
-    AChessPiece(FString modelPathName);
-
 private:
     void loadMaterials();
 
@@ -40,11 +38,15 @@ private:
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
+        UStaticMesh * mPieceMesh = nullptr;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
         int mMovementRange = 0;
 
     // Moral will represent the HP of the piece
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
         int mMorale = 10;
 
-    UStaticMesh * mMesh = nullptr;
+    UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
+        EPieces mPieceType;
 };

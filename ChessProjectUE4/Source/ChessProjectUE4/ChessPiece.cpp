@@ -10,10 +10,8 @@ namespace
     UMaterial * outlinerPieceMaterial = nullptr;
 };
 
-AChessPiece::AChessPiece(FString modelPathName)
+AChessPiece::AChessPiece()
 {
-    ConstructorHelpers::FObjectFinder<UStaticMesh> asset(*modelPathName);
-
     // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
     PrimaryActorTick.bCanEverTick = false;
 
@@ -28,27 +26,22 @@ AChessPiece::AChessPiece(FString modelPathName)
     }
 
     loadMaterials();
-
-    if (asset.Object)
-    {
-        mMesh = asset.Object;
-    }
 }
 
 void AChessPiece::OnConstruction(const FTransform& Transform)
 {
     Super::OnConstruction(Transform);
 
-    if (mMesh)
+    if (mPieceMesh)
     {
         if (auto modelComponent = getMeshRoot())
         {
-            modelComponent->SetStaticMesh(mMesh);
+            modelComponent->SetStaticMesh(mPieceMesh);
             modelComponent->bRenderCustomDepth = true;
 
             if (auto outliner = getMeshOutliner())
             {
-                outliner->SetStaticMesh(mMesh);
+                outliner->SetStaticMesh(mPieceMesh);
 
                 const float SCALE = 1.02f;
                 FTransform transform;

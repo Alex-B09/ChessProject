@@ -2,21 +2,16 @@
 
 #include "ChessProjectUE4.h"
 #include "BoardLogic.h"
-#include "ChessPiecePawn.h"
-#include "ChessPieceRook.h"
-#include "ChessPieceKnight.h"
-#include "ChessPieceBishop.h"
-#include "ChessPieceQueen.h"
-#include "ChessPieceKing.h"
+#include "PieceSpawner.h"
 
 #include "EngineUtils.h"
 
-BoardLogic::BoardLogic(AChessBoard* board, UWorld* world)
+BoardLogic::BoardLogic(AChessBoard* board, UWorld* world, PieceSpawner & spawner)
     : mBoardActor(board)
     , mWorld(world)
 {
     CreateTiles();
-    PlacePieces();
+    PlacePieces(spawner);
 }
 
 void BoardLogic::CreateTiles()
@@ -44,7 +39,7 @@ void BoardLogic::CreateTiles()
     }
 }
 
-void BoardLogic::PlacePieces()
+void BoardLogic::PlacePieces(PieceSpawner & spawner)
 {
     auto piecesPlacement = mBoardActor->getPiecesPlacement();
     FVector zDelta(0.f, 0.f, 20.f);
@@ -71,37 +66,47 @@ void BoardLogic::PlacePieces()
             spawnRotation += blackRotation;
         }
 
-        switch (currentPiece)
+        if (currentPiece != 0)
         {
-        case 0:
-            // nothing
-            break;
-        case PAWN:
-            chessPiece = mWorld->SpawnActor<AChessPiecePawn>(spawnPosition, spawnRotation);
-            break;
-        case ROOK:
-            chessPiece = mWorld->SpawnActor<AChessPieceRook>(spawnPosition, spawnRotation);
-            break;
-        case KNIGHT:
-            chessPiece = mWorld->SpawnActor<AChessPieceKnight>(spawnPosition, spawnRotation);
-            break;
-        case BISHOP:
-            chessPiece = mWorld->SpawnActor<AChessPieceBishop>(spawnPosition, spawnRotation);
-            break;
-        case QUEEN:
-            chessPiece = mWorld->SpawnActor<AChessPieceQueen>(spawnPosition, spawnRotation);
-            break;
-        case KING:
-            chessPiece = mWorld->SpawnActor<AChessPieceKing>(spawnPosition, spawnRotation);
-            break;
-        default:
-            break;
-        }
+            EPieces type = EPieces::PE_PAWN;
 
-        if (chessPiece)
-        {
-            chessPiece->setMaterial(isBlack);
-            mPieces.Add(chessPiece);
+            switch (currentPiece)
+            {
+            case 1:
+                type = EPieces::PE_PAWN;
+                break;
+            case 2:
+                type = EPieces::PE_ROOK;
+                break;
+            case 3:
+                type = EPieces::PE_KNIGHT;
+                break;
+            case 4:
+                type = EPieces::PE_BISHOP;
+                break;
+            case 5:
+                type = EPieces::PE_QUEEN;
+                break;
+            case 6:
+                type = EPieces::PE_KING;
+                break;
+            default:
+                break;
+            }
+
+            if (auto pieceActor = spawner.GetPieceBPActor(type))
+            {
+                chessPiece = mWorld->SpawnActor<AChessPiece>(
+                    pieceActor->GeneratedClass,
+                    spawnPosition,
+                    spawnRotation);
+
+                if (chessPiece)
+                {
+                    chessPiece->setMaterial(isBlack);
+                    mPieces.Add(chessPiece);
+                }
+            }
         }
     }
 }
