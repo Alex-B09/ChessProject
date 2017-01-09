@@ -20,6 +20,8 @@ public:
     FVector GetGlobalPosition() const;
     FRotator GetGlobalRotation() const;
 
+    bool isSameTile(UStaticMeshComponent * tile);
+
 private:
     UStaticMeshComponent * mTile;
     UStaticMeshComponent * mSelector;

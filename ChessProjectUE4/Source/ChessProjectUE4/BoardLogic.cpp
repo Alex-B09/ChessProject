@@ -105,8 +105,35 @@ void BoardLogic::PlacePieces(PieceSpawner & spawner)
                 {
                     chessPiece->setMaterial(isBlack);
                     mPieces.Add(chessPiece);
+                    if (isBlack)
+                    {
+                        mBlackPieces.Add(chessPiece);
+                    }
+                    else
+                    {
+                        mWhitePieces.Add(chessPiece);
+                    }
                 }
             }
         }
     }
+}
+
+void BoardLogic::MovePiece(AChessPiece* piece, ChessTile * tileDestination)
+{
+
+}
+
+ChessTile * BoardLogic::getChessTileFromComponent(UStaticMeshComponent * component)
+{
+    return nullptr;
+}
+
+bool BoardLogic::isRightColor(AChessPiece * piece, bool isWhite)
+{
+    if (isWhite)
+    {
+        return mWhitePieces.Contains(piece);
+    }
+    return mBlackPieces.Contains(piece);
 }

@@ -26,7 +26,6 @@ public:
     AChessProjectUE4GameMode();
 
     void StartPlay() override;
-
     void EndCurrentPlayerTurn();
 
 private:

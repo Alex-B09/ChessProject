@@ -3,11 +3,15 @@
 #pragma once
 
 #include "GameFramework/Actor.h"
+#include "GameFramework/Pawn.h"
 #include "ChessProjectUE4.h"
+
+#include "GameFramework/PawnMovementComponent.h"
+
 #include "ChessPiece.generated.h"
 
 UCLASS()
-class CHESSPROJECTUE4_API AChessPiece : public AActor
+class CHESSPROJECTUE4_API AChessPiece : public APawn
 {
     GENERATED_BODY()
 
@@ -49,4 +53,8 @@ protected:
 
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
         EPieces mPieceType;
+
+    ///** Movement component used for movement logic in various movement modes (walking, falling, etc), containing relevant settings and functions to control movement. */
+    //UPROPERTY(Category = "Movement", VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
+    //    UPawnMovementComponent* mPieceMovement;
 };

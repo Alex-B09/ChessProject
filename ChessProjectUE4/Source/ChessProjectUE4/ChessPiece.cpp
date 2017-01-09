@@ -23,6 +23,11 @@ AChessPiece::AChessPiece()
         {
             outliner->SetupAttachment(RootComponent);
         }
+
+        if (auto movement = CreateDefaultSubobject<UPawnMovementComponent>(TEXT("Movement")))
+        {
+            movement->Velocity = FVector(50.f, 50.f, 0.f);
+        }
     }
 
     loadMaterials();

@@ -50,6 +50,7 @@ void AChessPlayerController::TestMouseClick()
 
     auto test1 = hit.Component;
     auto test2 = hit.Distance;
+    auto test3 = hit.Component;
 
 
     if (hit.bBlockingHit)
@@ -65,6 +66,19 @@ void AChessPlayerController::TestMouseClick()
             mSelectedPiece->setSelected(true);
 
             UE_LOG(LogTemp, Warning, TEXT("Selected : %s"), *chessPiece->GetName());
+        }
+        else if (auto chessBoard = Cast<AChessBoard>(actorHit.Get()))
+        {
+            auto component = hit.Component;
+            if (component.IsValid()) // to be on safe side
+            {
+                // if it is the selector
+                if (auto parent = Cast<UStaticMeshComponent>(component->GetAttachParent()))
+                {
+                    component = parent;
+                }
+
+            }
         }
     }
 }

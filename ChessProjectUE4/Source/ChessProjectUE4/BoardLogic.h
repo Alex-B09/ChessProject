@@ -18,15 +18,23 @@
 
 class CHESSPROJECTUE4_API BoardLogic
 {
-    //TArray<AChessPiece*> mPieces;
     AChessBoard* mBoardActor;       // non-owning ptr
     UWorld* mWorld;                 // non-owning ptr
+
     TArray<AChessPiece*> mPieces;  // the owner of the all the pieces
+    TArray<AChessPiece*> mWhitePieces;
+    TArray<AChessPiece*> mBlackPieces;
+
     TArray<ChessTile> mTiles;
 
 public:
     BoardLogic() = default;
     BoardLogic(AChessBoard* board, UWorld* world, PieceSpawner & spawner);
+
+    void MovePiece(AChessPiece* piece, ChessTile * tileDestination);
+    ChessTile * getChessTileFromComponent(UStaticMeshComponent * component);
+
+    bool isRightColor(AChessPiece * piece, bool isWhite);
 
 private:
     void CreateTiles();
