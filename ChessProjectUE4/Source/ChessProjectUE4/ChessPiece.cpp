@@ -3,6 +3,8 @@
 #include "ChessProjectUE4.h"
 #include "ChessPiece.h"
 
+#include "PieceMovementComponent.h"
+
 namespace
 {
     UMaterial * blackPieceMaterial = nullptr;
@@ -24,7 +26,7 @@ AChessPiece::AChessPiece()
             outliner->SetupAttachment(RootComponent);
         }
 
-        if (auto movement = CreateDefaultSubobject<UPawnMovementComponent>(TEXT("Movement")))
+        if (auto movement = CreateDefaultSubobject<UPieceMovementComponent>(TEXT("Movement")))
         {
             movement->UpdatedComponent = RootComponent;
             movement->Velocity = FVector(50.f, 50.f, 0.f);
