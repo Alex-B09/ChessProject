@@ -3,6 +3,7 @@
 #include "ChessProjectUE4.h"
 #include "ChessProjectUE4GameMode.h"
 #include "ChessBoard.h"
+#include "EditorRessourceBank.h"
 
 
 #include "ChessPlayerController.h"
@@ -11,13 +12,14 @@
 AChessProjectUE4GameMode::AChessProjectUE4GameMode()
 {
     PlayerControllerClass = AChessPlayerController::StaticClass();
+    EditorRessourceBank::CreateSingleton();
 }
 
 void AChessProjectUE4GameMode::StartPlay()
 {
     if (auto board = getChessBoard())
     {
-        mBoardLogic = std::make_unique<BoardLogic>(board, GetWorld(), mSpawner);
+        mBoardLogic = std::make_unique<BoardLogic>(board, GetWorld());
     }
 
     Super::StartPlay();

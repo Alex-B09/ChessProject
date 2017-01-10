@@ -2,16 +2,16 @@
 
 #include "ChessProjectUE4.h"
 #include "BoardLogic.h"
-#include "PieceSpawner.h"
+#include "EditorRessourceBank.h"
 
 #include "EngineUtils.h"
 
-BoardLogic::BoardLogic(AChessBoard* board, UWorld* world, PieceSpawner & spawner)
+BoardLogic::BoardLogic(AChessBoard* board, UWorld* world)
     : mBoardActor(board)
     , mWorld(world)
 {
     CreateTiles();
-    PlacePieces(spawner);
+    PlacePieces();
 }
 
 void BoardLogic::CreateTiles()
@@ -39,7 +39,7 @@ void BoardLogic::CreateTiles()
     }
 }
 
-void BoardLogic::PlacePieces(PieceSpawner & spawner)
+void BoardLogic::PlacePieces()
 {
     auto piecesPlacement = mBoardActor->getPiecesPlacement();
     FVector zDelta(0.f, 0.f, 20.f);
@@ -68,33 +68,35 @@ void BoardLogic::PlacePieces(PieceSpawner & spawner)
 
         if (currentPiece != 0)
         {
-            EPieces type = EPieces::PE_PAWN;
+            using RessourceBlueprints = EditorRessourceBank::RessourceBlueprints;
+
+            RessourceBlueprints type = RessourceBlueprints::PIECE_PAWN;
 
             switch (currentPiece)
             {
-            case 1:
-                type = EPieces::PE_PAWN;
-                break;
-            case 2:
-                type = EPieces::PE_ROOK;
-                break;
-            case 3:
-                type = EPieces::PE_KNIGHT;
-                break;
-            case 4:
-                type = EPieces::PE_BISHOP;
-                break;
-            case 5:
-                type = EPieces::PE_QUEEN;
-                break;
-            case 6:
-                type = EPieces::PE_KING;
-                break;
-            default:
-                break;
+                case 1:
+                    type = RessourceBlueprints::PIECE_PAWN;
+                    break;
+                case 2:
+                    type = RessourceBlueprints::PIECE_ROOK;
+                    break;
+                case 3:
+                    type = RessourceBlueprints::PIECE_KNIGHT;
+                    break;
+                case 4:
+                    type = RessourceBlueprints::PIECE_BISHOP;
+                    break;
+                case 5:
+                    type = RessourceBlueprints::PIECE_QUEEN;
+                    break;
+                case 6:
+                    type = RessourceBlueprints::PIECE_KING;
+                    break;
+                default:
+                    break;
             }
 
-            if (auto pieceActor = spawner.GetPieceBPActor(type))
+            if (auto pieceActor = EditorRessourceBank::GetBlueprintRessource(type))
             {
                 chessPiece = mWorld->SpawnActor<AChessPiece>(
                     pieceActor->GeneratedClass,

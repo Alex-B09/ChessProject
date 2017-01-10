@@ -70,7 +70,10 @@
     <ClInclude Include="..\..\Source\ChessProjectUE4\ChessPieceLogic.h">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\Source\ChessProjectUE4\PieceSpawner.h">
+    <ClInclude Include="..\..\Source\ChessProjectUE4\PieceMovementComponent.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\EditorRessourceBank.h">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClInclude>
   </ItemGroup>
@@ -84,7 +87,10 @@
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPieceLogic.cpp">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Source\ChessProjectUE4\PieceSpawner.cpp">
+    <ClCompile Include="..\..\Source\ChessProjectUE4\PieceMovementComponent.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\EditorRessourceBank.cpp">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClCompile>
   </ItemGroup>

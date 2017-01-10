@@ -5,7 +5,6 @@
 #include "ChessBoard.h"
 #include "ChessPiece.h"
 #include "ChessTile.h"
-#include "PieceSpawner.h"
 
 /**
  * BoardLogic
@@ -29,7 +28,7 @@ class CHESSPROJECTUE4_API BoardLogic
 
 public:
     BoardLogic() = default;
-    BoardLogic(AChessBoard* board, UWorld* world, PieceSpawner & spawner);
+    BoardLogic(AChessBoard* board, UWorld* world);
 
     void MovePiece(AChessPiece* piece, ChessTile * tileDestination);
     ChessTile * getChessTileFromComponent(UStaticMeshComponent * component);
@@ -38,5 +37,5 @@ public:
 
 private:
     void CreateTiles();
-    void PlacePieces(PieceSpawner & spawner);
+    void PlacePieces();
 };

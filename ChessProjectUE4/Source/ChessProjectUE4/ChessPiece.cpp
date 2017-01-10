@@ -26,6 +26,7 @@ AChessPiece::AChessPiece()
 
         if (auto movement = CreateDefaultSubobject<UPawnMovementComponent>(TEXT("Movement")))
         {
+            movement->UpdatedComponent = RootComponent;
             movement->Velocity = FVector(50.f, 50.f, 0.f);
         }
     }
