@@ -76,3 +76,11 @@ void AChessProjectUE4GameMode::LookAtCenter()
     // TODO
     // set camera from the middle to see the moves
 }
+
+void AChessProjectUE4GameMode::playTurn(AChessPiece * piece, UStaticMeshComponent* destination)
+{
+    if (auto tile = mBoardLogic->getChessTileFromComponent(destination))
+    {
+        mBoardLogic->MovePiece(piece, tile);
+    }
+}

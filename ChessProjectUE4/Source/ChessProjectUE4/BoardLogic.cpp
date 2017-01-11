@@ -123,12 +123,17 @@ void BoardLogic::PlacePieces()
 
 void BoardLogic::MovePiece(AChessPiece* piece, ChessTile * tileDestination)
 {
-
+    piece->SetActorLocation(tileDestination->GetGlobalPosition());
 }
 
 ChessTile * BoardLogic::getChessTileFromComponent(UStaticMeshComponent * component)
 {
-    return nullptr;
+    auto foundTile = mTiles.FindByPredicate([component](ChessTile & tile)
+    {
+        return tile.isSameTile(component);
+    });
+
+    return foundTile;
 }
 
 bool BoardLogic::isRightColor(AChessPiece * piece, bool isWhite)

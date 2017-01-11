@@ -4,6 +4,7 @@
 
 #include "GameFramework/GameModeBase.h"
 #include "BoardLogic.h"
+#include <Components/StaticMeshComponent.h>
 
 #include <memory>
 #include "ChessProjectUE4GameMode.generated.h"
@@ -25,6 +26,8 @@ public:
 
     void StartPlay() override;
     void EndCurrentPlayerTurn();
+
+    void playTurn(AChessPiece * piece, UStaticMeshComponent* destination);
 
 private:
     AChessBoard * getChessBoard() const;

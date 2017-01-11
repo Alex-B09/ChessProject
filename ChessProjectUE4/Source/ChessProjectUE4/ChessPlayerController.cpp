@@ -78,6 +78,13 @@ void AChessPlayerController::TestMouseClick()
                     component = parent;
                 }
 
+                if (component.IsValid() && mSelectedPiece)
+                {
+                    if (auto chessMode = Cast<AChessProjectUE4GameMode>(GetWorld()->GetAuthGameMode()))
+                    {
+                        chessMode->playTurn(mSelectedPiece, Cast<UStaticMeshComponent>(component.Get()));
+                    }
+                }
             }
         }
     }
