@@ -255,8 +255,10 @@
   <ItemGroup>
     <ClCompile Include="..\..\Source\ChessProjectUE4\PieceMovementComponent.cpp" />
     <ClCompile Include="..\..\Source\ChessProjectUE4\EditorRessourceBank.cpp" />
+    <ClCompile Include="..\..\Source\ChessProjectUE4\TileInformations.cpp" />
     <ClInclude Include="..\..\Source\ChessProjectUE4\PieceMovementComponent.h" />
     <ClInclude Include="..\..\Source\ChessProjectUE4\EditorRessourceBank.h" />
+    <ClInclude Include="..\..\Source\ChessProjectUE4\TileInformations.h" />
     <None Include="..\..\ChessProjectUE4.uproject" />
     <None Include="..\..\Source\ChessProjectUE4.Target.cs" />
     <None Include="..\..\Source\ChessProjectUE4Editor.Target.cs" />

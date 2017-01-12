@@ -4,11 +4,14 @@
 #include "BoardLogic.h"
 #include "EditorRessourceBank.h"
 
+
+
 #include "EngineUtils.h"
 
 BoardLogic::BoardLogic(AChessBoard* board, UWorld* world)
     : mBoardActor(board)
     , mWorld(world)
+    , mTileInfos(mBoardActor->getNbTiles())
 {
     CreateTiles();
     PlacePieces();
@@ -32,7 +35,7 @@ void BoardLogic::CreateTiles()
             }
         }
     }
-
+    
     for (auto & tile : mTiles)
     {
         tile.SetSelectorVisibility(false);
@@ -47,16 +50,18 @@ void BoardLogic::PlacePieces()
     // personal note : if there is no values associated with Roll/Pitch/Yah,
     //                  there will be garbage values
     FRotator blackRotation(0.f, 180.f, 0.f);
-
+    const int MAX_INDEX_ROW = mTileInfos.GetMaxIndex();
     // set pieces to right spot
     for (int i = 0; i < piecesPlacement.Num(); ++i)
     {
         AChessPiece * chessPiece = nullptr;
+        auto tileInfo = mTileInfos.GetTileInfo(i / MAX_INDEX_ROW, i % MAX_INDEX_ROW);
         int currentPlacement = piecesPlacement[i];
         int currentPiece = currentPlacement % 10;
         bool isBlack = currentPlacement > 10;
 
         auto currentTile = mTiles[i];
+        tileInfo->tile = &currentTile;
 
         auto spawnPosition = currentTile.GetGlobalPosition() + zDelta;
         auto spawnRotation = currentTile.GetGlobalRotation();
@@ -107,6 +112,7 @@ void BoardLogic::PlacePieces()
                 {
                     chessPiece->setMaterial(isBlack);
                     mPieces.Add(chessPiece);
+                    tileInfo->piece = chessPiece;
                     if (isBlack)
                     {
                         mBlackPieces.Add(chessPiece);

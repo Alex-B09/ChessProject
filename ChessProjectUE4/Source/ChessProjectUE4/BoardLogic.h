@@ -6,6 +6,8 @@
 #include "ChessPiece.h"
 #include "ChessTile.h"
 
+#include "TileInformations.h"
+
 /**
  * BoardLogic
 
@@ -25,6 +27,7 @@ class CHESSPROJECTUE4_API BoardLogic
     TArray<AChessPiece*> mBlackPieces;
 
     TArray<ChessTile> mTiles;
+    TileInformations mTileInfos;
 
 public:
     BoardLogic() = default;
