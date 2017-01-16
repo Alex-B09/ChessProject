@@ -37,8 +37,10 @@ public:
     ChessTile * getChessTileFromComponent(UStaticMeshComponent * component);
 
     bool isRightColor(AChessPiece * piece, bool isWhite);
+    void HighlingPossiblePlacement(AChessPiece * piece);
 
 private:
     void CreateTiles();
     void PlacePieces();
+    void HideAllSelectors();
 };

@@ -3,7 +3,7 @@
 #include "ChessProjectUE4.h"
 #include "BoardLogic.h"
 #include "EditorRessourceBank.h"
-
+#include "Pathfinding.h"
 
 
 #include "EngineUtils.h"
@@ -35,7 +35,7 @@ void BoardLogic::CreateTiles()
             }
         }
     }
-    
+
     for (auto & tile : mTiles)
     {
         tile.SetSelectorVisibility(false);
@@ -60,7 +60,7 @@ void BoardLogic::PlacePieces()
         int currentPiece = currentPlacement % 10;
         bool isBlack = currentPlacement > 10;
 
-        auto currentTile = mTiles[i];
+        auto & currentTile = mTiles[i];
         tileInfo->tile = &currentTile;
 
         auto spawnPosition = currentTile.GetGlobalPosition() + zDelta;
@@ -129,6 +129,12 @@ void BoardLogic::PlacePieces()
 
 void BoardLogic::MovePiece(AChessPiece* piece, ChessTile * tileDestination)
 {
+    auto oldTile = mTileInfos.GetTileInfoFromPiece(piece);
+    auto newTile = mTileInfos.GetTileInfoFromTile(tileDestination);
+
+    oldTile->piece = nullptr;
+    newTile->piece = piece;
+
     piece->SetActorLocation(tileDestination->GetGlobalPosition());
 }
 
@@ -149,4 +155,34 @@ bool BoardLogic::isRightColor(AChessPiece * piece, bool isWhite)
         return mWhitePieces.Contains(piece);
     }
     return mBlackPieces.Contains(piece);
+}
+
+void BoardLogic::HighlingPossiblePlacement(AChessPiece * piece)
+{
+    Pathfinding pathfinding(mTileInfos);
+    auto tileInfo = mTileInfos.GetTileInfoFromPiece(piece);
+
+    auto weightedTiles = pathfinding.GetWeightedTiles(tileInfo);
+
+    HideAllSelectors();
+
+    for (auto & tileRow : weightedTiles)
+    {
+        for (auto & tile : tileRow)
+        {
+            int weight = tile.GetWeight();
+            if (weight <= 2 && weight > 0)
+            {
+                tile.GetTileInfo()->tile->SetSelectorVisibility(true);
+            }
+        }
+    }
+}
+
+void BoardLogic::HideAllSelectors()
+{
+    for (auto & tile : mTiles)
+    {
+        tile.SetSelectorVisibility(false);
+    }
 }

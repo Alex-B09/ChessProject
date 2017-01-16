@@ -28,6 +28,7 @@ public:
     void EndCurrentPlayerTurn();
 
     void playTurn(AChessPiece * piece, UStaticMeshComponent* destination);
+    void ShowPieceMovement(AChessPiece * piece);
 
 private:
     AChessBoard * getChessBoard() const;

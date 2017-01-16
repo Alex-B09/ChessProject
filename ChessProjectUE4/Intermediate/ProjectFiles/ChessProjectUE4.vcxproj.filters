@@ -79,6 +79,9 @@
     <ClInclude Include="..\..\Source\ChessProjectUE4\TileInformations.h">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Source\ChessProjectUE4\Pathfinding.h">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\Source\ChessProjectUE4\ChessPlayerController.cpp">
@@ -97,6 +100,9 @@
       <Filter>Source\ChessProjectUE4</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Source\ChessProjectUE4\TileInformations.cpp">
+      <Filter>Source\ChessProjectUE4</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Source\ChessProjectUE4\Pathfinding.cpp">
       <Filter>Source\ChessProjectUE4</Filter>
     </ClCompile>
   </ItemGroup>

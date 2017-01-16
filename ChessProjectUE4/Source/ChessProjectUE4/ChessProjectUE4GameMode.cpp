@@ -84,3 +84,8 @@ void AChessProjectUE4GameMode::playTurn(AChessPiece * piece, UStaticMeshComponen
         mBoardLogic->MovePiece(piece, tile);
     }
 }
+
+void AChessProjectUE4GameMode::ShowPieceMovement(AChessPiece * piece)
+{
+    mBoardLogic->HighlingPossiblePlacement(piece);
+}

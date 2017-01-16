@@ -23,18 +23,38 @@ TileInformation * TileInformations::GetTileInfo(int x, int y)
     return nullptr;
 }
 
-TileInformation * TileInformations::GetTileFromPiece(AChessPiece * piece)
+TileInformation * TileInformations::GetTileInfoFromPiece(AChessPiece * piece)
 {
     if (piece)
     {
         auto findByPiece = [piece](TileInformation & tileInfo)
-                            {
-                                return tileInfo.piece == piece;
-                            };
+        {
+            return tileInfo.piece == piece;
+        };
 
         for (int i = 0; i < MAX_INDEX; ++i)
         {
             if (auto tileInfo = mInformations[i].FindByPredicate(findByPiece))
+            {
+                return tileInfo;
+            }
+        }
+    }
+    return nullptr;
+}
+
+TileInformation * TileInformations::GetTileInfoFromTile(ChessTile * tile)
+{
+    if (tile)
+    {
+        auto findByTile = [tile](TileInformation & tileInfo)
+        {
+            return tileInfo.tile == tile;
+        };
+
+        for (int i = 0; i < MAX_INDEX; ++i)
+        {
+            if (auto tileInfo = mInformations[i].FindByPredicate(findByTile))
             {
                 return tileInfo;
             }

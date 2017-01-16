@@ -65,6 +65,11 @@ void AChessPlayerController::TestMouseClick()
             mSelectedPiece = chessPiece;
             mSelectedPiece->setSelected(true);
 
+            if (auto chessMode = Cast<AChessProjectUE4GameMode>(GetWorld()->GetAuthGameMode()))
+            {
+                chessMode->ShowPieceMovement(mSelectedPiece);
+            }
+
             UE_LOG(LogTemp, Warning, TEXT("Selected : %s"), *chessPiece->GetName());
         }
         else if (auto chessBoard = Cast<AChessBoard>(actorHit.Get()))

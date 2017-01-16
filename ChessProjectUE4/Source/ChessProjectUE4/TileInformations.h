@@ -7,12 +7,12 @@
 
 struct TileInformation
 {
-    ChessTile * tile;
-    AChessPiece * piece;
+    ChessTile * tile = nullptr;
+    AChessPiece * piece = nullptr;
 };
 
 /**
- * 
+ *
  */
 class CHESSPROJECTUE4_API TileInformations
 {
@@ -21,15 +21,22 @@ class CHESSPROJECTUE4_API TileInformations
     const int MIN_INDEX = 0;
 
 public:
-	TileInformations(const int NB_TILES);
-	~TileInformations() = default;
+    TileInformations(const int NB_TILES);
+    ~TileInformations() = default;
 
     // return a non-owning pointer
     TileInformation * GetTileInfo(int x, int y);
-    TileInformation * GetTileFromPiece(AChessPiece * piece);
+    TileInformation * GetTileInfoFromPiece(AChessPiece * piece);
+    TileInformation * GetTileInfoFromTile(ChessTile * tile);
 
-    const int GetMaxIndex()const { return MAX_INDEX; }
-    const int GetMinIndex()const { return MIN_INDEX; }
+    const int GetMaxIndex()const
+    {
+        return MAX_INDEX;
+    }
+    const int GetMinIndex()const
+    {
+        return MIN_INDEX;
+    }
 
 
 
