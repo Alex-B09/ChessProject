@@ -77,12 +77,15 @@ void AChessProjectUE4GameMode::LookAtCenter()
     // set camera from the middle to see the moves
 }
 
-void AChessProjectUE4GameMode::playTurn(AChessPiece * piece, UStaticMeshComponent* destination)
+bool AChessProjectUE4GameMode::playTurn(AChessPiece * piece, UStaticMeshComponent* destination)
 {
+    bool isMoveValid = false;
     if (auto tile = mBoardLogic->getChessTileFromComponent(destination))
     {
-        mBoardLogic->MovePiece(piece, tile);
+        isMoveValid = mBoardLogic->MovePiece(piece, tile);
     }
+
+    return isMoveValid;
 }
 
 void AChessProjectUE4GameMode::ShowPieceMovement(AChessPiece * piece)

@@ -5,6 +5,76 @@
 
 #include <algorithm>
 
+
+WeightedTiles::WeightedTiles(TileInformations & tileInfo)
+    :mTileInfo(tileInfo)
+{
+    const int MAX_INDEX = mTileInfo.GetMaxIndex();
+    mWeightedTiles.SetNum(MAX_INDEX);
+
+    for (int x = 0; x < MAX_INDEX; x++)
+    {
+        for (int y = 0; y < MAX_INDEX; y++)
+        {
+            WeightedTile tile(mTileInfo.GetTileInfo(x, y));
+            tile.SetPosition(x, y);
+            mWeightedTiles[x].Add(tile);
+        }
+    }
+}
+
+WeightedTile * WeightedTiles::GetWeightedTileFromTile(ChessTile * tileToFind)
+{
+    for (auto & tileRow : mWeightedTiles)
+    {
+        for (auto & tile : tileRow)
+        {
+            if (tile == tileToFind)
+            {
+                return &tile;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+WeightedTile * WeightedTiles::GetWeightedTileFromTile(TileInformation *tileToFind)
+{
+    for (auto & tileRow : mWeightedTiles)
+    {
+        for (auto & tile : tileRow)
+        {
+            if (tile == tileToFind)
+            {
+                return &tile;
+            }
+        }
+    }
+
+    return nullptr;
+}
+
+WeightedTile * WeightedTiles::Get(const int X, const int Y)
+{
+    return &mWeightedTiles[X][Y];
+}
+
+TArray<WeightedTile*> WeightedTiles::GetFlatArray()
+{
+    TArray<WeightedTile*> flatArray;
+
+    for (auto & tileRow : mWeightedTiles)
+    {
+        for (auto & tile : tileRow)
+        {
+            flatArray.Add(&tile);
+        }
+    }
+
+    return flatArray;
+}
+
 Pathfinding::Pathfinding(TileInformations & tileInfo)
     :mTileInfo(tileInfo)
 {
@@ -14,22 +84,12 @@ Pathfinding::~Pathfinding()
 {
 }
 
-Pathfinding::weightedTiles Pathfinding::GetWeightedTiles(TileInformation *startingTile)
+WeightedTiles Pathfinding::GetWeightedTiles(TileInformation *startingTile)
 {
-    weightedTiles tiles = CreateWeightedTiles();
+    WeightedTiles tiles(mTileInfo);
     WeightedTile * startingPoint = nullptr;
 
-    for (auto & tileRow : tiles)
-    {
-        for (auto & tile : tileRow)
-        {
-            if (tile == startingTile)
-            {
-                startingPoint = &tile;
-                break;
-            }
-        }
-    }
+    startingPoint = tiles.GetWeightedTileFromTile(startingTile);
 
     if (startingPoint)
     {
@@ -40,27 +100,7 @@ Pathfinding::weightedTiles Pathfinding::GetWeightedTiles(TileInformation *starti
     return tiles;
 }
 
-Pathfinding::weightedTiles Pathfinding::CreateWeightedTiles()
-{
-    weightedTiles tiles;
-
-    const int MAX_INDEX = mTileInfo.GetMaxIndex();
-    tiles.SetNum(MAX_INDEX);
-
-    for (int x = 0; x < MAX_INDEX; x++)
-    {
-        for (int y = 0; y < MAX_INDEX; y++)
-        {
-            WeightedTile tile(mTileInfo.GetTileInfo(x, y));
-            tile.SetPosition(x, y);
-            tiles[x].Add(tile);
-        }
-    }
-
-    return tiles;
-}
-
-void Pathfinding::ComputeNeighborPaths(weightedTiles & tiles, WeightedTile * tile)
+void Pathfinding::ComputeNeighborPaths(WeightedTiles & tiles, WeightedTile * tile)
 {
     auto neighbors = GetNeighbors(tiles, tile);
     int neighborWeight = tile->GetWeight() + 1;
@@ -84,7 +124,7 @@ void Pathfinding::ComputeNeighborPaths(weightedTiles & tiles, WeightedTile * til
     }
 }
 
-TArray<WeightedTile*> Pathfinding::GetNeighbors(Pathfinding::weightedTiles & tiles,
+TArray<WeightedTile*> Pathfinding::GetNeighbors(WeightedTiles & tiles,
                                                 WeightedTile * tile)
 {
     TArray<WeightedTile*> neighbors;
@@ -103,7 +143,7 @@ TArray<WeightedTile*> Pathfinding::GetNeighbors(Pathfinding::weightedTiles & til
         {
             if (!(x == X && y == Y))
             {
-                neighbors.Add(&(tiles[x][y]));
+                neighbors.Add(tiles.Get(x, y));
             }
         }
     }

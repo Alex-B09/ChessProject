@@ -34,6 +34,7 @@ public:
     void setMaterial(bool isBlack);
     void setSelected(bool isSelected);
 
+    int GetMovementValue() const;
 private:
     void loadMaterials();
 

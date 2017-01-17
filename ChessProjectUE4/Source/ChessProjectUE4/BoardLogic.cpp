@@ -127,15 +127,29 @@ void BoardLogic::PlacePieces()
     }
 }
 
-void BoardLogic::MovePiece(AChessPiece* piece, ChessTile * tileDestination)
+bool BoardLogic::MovePiece(AChessPiece* piece, ChessTile * tileDestination)
 {
+    bool isValidMove = false;
     auto oldTile = mTileInfos.GetTileInfoFromPiece(piece);
     auto newTile = mTileInfos.GetTileInfoFromTile(tileDestination);
 
-    oldTile->piece = nullptr;
-    newTile->piece = piece;
+    if (mCurrentSelectionPathfinding)
+    {
+        auto weightedDestination = mCurrentSelectionPathfinding->GetWeightedTileFromTile(tileDestination);
+        const int MAX_MOVEMENT = piece->GetMovementValue();
+        if (weightedDestination->GetWeight() <= MAX_MOVEMENT)
+        {
+            oldTile->piece = nullptr;
+            newTile->piece = piece;
 
-    piece->SetActorLocation(tileDestination->GetGlobalPosition());
+            piece->SetActorLocation(tileDestination->GetGlobalPosition());
+            mCurrentSelectionPathfinding.reset(nullptr);
+            HideAllSelectors();
+            isValidMove = true;
+        }
+    }
+
+    return isValidMove;
 }
 
 ChessTile * BoardLogic::getChessTileFromComponent(UStaticMeshComponent * component)
@@ -166,17 +180,16 @@ void BoardLogic::HighlingPossiblePlacement(AChessPiece * piece)
 
     HideAllSelectors();
 
-    for (auto & tileRow : weightedTiles)
+    for (auto & tile : weightedTiles.GetFlatArray())
     {
-        for (auto & tile : tileRow)
+        int weight = tile->GetWeight();
+        if (weight <= piece->GetMovementValue() && weight > 0)
         {
-            int weight = tile.GetWeight();
-            if (weight <= 2 && weight > 0)
-            {
-                tile.GetTileInfo()->tile->SetSelectorVisibility(true);
-            }
+            tile->GetTileInfo()->tile->SetSelectorVisibility(true);
         }
     }
+
+    mCurrentSelectionPathfinding = std::make_unique<WeightedTiles>(std::move(weightedTiles));
 }
 
 void BoardLogic::HideAllSelectors()

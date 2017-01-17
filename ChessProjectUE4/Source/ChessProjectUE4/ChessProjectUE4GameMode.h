@@ -27,7 +27,8 @@ public:
     void StartPlay() override;
     void EndCurrentPlayerTurn();
 
-    void playTurn(AChessPiece * piece, UStaticMeshComponent* destination);
+    // returns false if the move was invalid
+    bool playTurn(AChessPiece * piece, UStaticMeshComponent* destination);
     void ShowPieceMovement(AChessPiece * piece);
 
 private:

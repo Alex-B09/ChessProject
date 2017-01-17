@@ -87,7 +87,11 @@ void AChessPlayerController::TestMouseClick()
                 {
                     if (auto chessMode = Cast<AChessProjectUE4GameMode>(GetWorld()->GetAuthGameMode()))
                     {
-                        chessMode->playTurn(mSelectedPiece, Cast<UStaticMeshComponent>(component.Get()));
+                        if (chessMode->playTurn(mSelectedPiece, Cast<UStaticMeshComponent>(component.Get())))
+                        {
+                            mSelectedPiece->setSelected(false);
+                            mSelectedPiece = nullptr;
+                        }
                     }
                 }
             }

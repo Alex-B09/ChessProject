@@ -7,6 +7,9 @@
 #include "ChessTile.h"
 
 #include "TileInformations.h"
+#include "Pathfinding.h"
+
+#include <memory>
 
 /**
  * BoardLogic
@@ -28,12 +31,14 @@ class CHESSPROJECTUE4_API BoardLogic
 
     TArray<ChessTile> mTiles;
     TileInformations mTileInfos;
+    std::unique_ptr<WeightedTiles> mCurrentSelectionPathfinding;
 
 public:
     BoardLogic() = default;
     BoardLogic(AChessBoard* board, UWorld* world);
 
-    void MovePiece(AChessPiece* piece, ChessTile * tileDestination);
+    //returns false if move is invalid
+    bool MovePiece(AChessPiece* piece, ChessTile * tileDestination);
     ChessTile * getChessTileFromComponent(UStaticMeshComponent * component);
 
     bool isRightColor(AChessPiece * piece, bool isWhite);

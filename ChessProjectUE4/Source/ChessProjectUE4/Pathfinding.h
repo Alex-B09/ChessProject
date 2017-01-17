@@ -63,10 +63,31 @@ public:
         return tile->mTile == mTile;
     }
 
+    bool operator==(ChessTile * chessTile)
+    {
+        return mTile->tile == chessTile;
+    }
+
     TileInformation * GetTileInfo()
     {
         return mTile;
     }
+};
+
+class WeightedTiles
+{
+    TArray<TArray<WeightedTile>> mWeightedTiles;
+    TileInformations & mTileInfo;
+public:
+
+
+    WeightedTiles(TileInformations & tileInfo);
+    WeightedTile * GetWeightedTileFromTile(ChessTile * tile);
+    WeightedTile * GetWeightedTileFromTile(TileInformation *tile);
+
+    WeightedTile * Get(const int X, const int Y);
+
+    TArray<WeightedTile*> GetFlatArray();
 };
 
 /**
@@ -75,15 +96,14 @@ public:
 class CHESSPROJECTUE4_API Pathfinding
 {
     TileInformations & mTileInfo;
+
 public:
     Pathfinding(TileInformations & tileInfo);
     ~Pathfinding();
 
-    using weightedTiles = TArray<TArray<WeightedTile>>;
-    weightedTiles GetWeightedTiles(TileInformation *startingTile);
+    WeightedTiles GetWeightedTiles(TileInformation *startingTile);
 
 private:
-    weightedTiles CreateWeightedTiles();
-    TArray<WeightedTile*> GetNeighbors(weightedTiles & tiles, WeightedTile * tile);
-    void ComputeNeighborPaths(weightedTiles & tiles, WeightedTile * tile);
+    TArray<WeightedTile*> GetNeighbors(WeightedTiles & tiles, WeightedTile * tile);
+    void ComputeNeighborPaths(WeightedTiles & tiles, WeightedTile * tile);
 };

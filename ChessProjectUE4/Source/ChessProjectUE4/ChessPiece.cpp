@@ -122,6 +122,11 @@ void AChessPiece::setMaterial(bool isBlack)
     }
 }
 
+int AChessPiece::GetMovementValue() const
+{
+    return mMovementRange;
+}
+
 void AChessPiece::setSelected(bool isSelected)
 {
     if (auto outliner = getMeshOutliner())
