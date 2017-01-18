@@ -152,6 +152,20 @@ bool BoardLogic::MovePiece(AChessPiece* piece, ChessTile * tileDestination)
     return isValidMove;
 }
 
+bool BoardLogic::IsValidMove(AChessPiece* piece, ChessTile * tileDestination)
+{
+    bool isValidMove = false;
+
+    if (mCurrentSelectionPathfinding)
+    {
+        auto weightedDestination = mCurrentSelectionPathfinding->GetWeightedTileFromTile(tileDestination);
+        const int MAX_MOVEMENT = piece->GetMovementValue();
+        isValidMove = weightedDestination->GetWeight() <= MAX_MOVEMENT;
+    }
+
+    return isValidMove;
+}
+
 ChessTile * BoardLogic::getChessTileFromComponent(UStaticMeshComponent * component)
 {
     auto foundTile = mTiles.FindByPredicate([component](ChessTile & tile)

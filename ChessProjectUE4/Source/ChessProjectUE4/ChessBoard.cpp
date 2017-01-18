@@ -226,8 +226,12 @@ void AChessBoard::ComputeCameraLocation()
     FVector blackDelta(400.f, 0.f, 0.f);
     mBlackLookAtLocation = mCenterLocation + blackDelta;
 
+    FVector middleDelta(0.f, 400.f, 0.f); // check if -400 or 400
+    mMiddleLookAtLocation = mCenterLocation + middleDelta;
+
     mWhiteLookAtRotation = FRotator(0.f, 0.f, 0.f) + FRotator(-45.f, 0.f, 0.f);
     mBlackLookAtRotation = FRotator(0.f, 180.f, 0.f) + FRotator(-45.f, 0.f, 0.f);
+    mMiddleLookAtRotation = FRotator(0.f, 270.f, 0.f) + FRotator(-45.f, 0.f, 0.f);
 
     mCurrentLookAtLocation = mWhiteLookAtLocation;
     mCurrentLookAtRotation = mWhiteLookAtRotation;
@@ -245,6 +249,15 @@ void AChessBoard::switchCamera(bool lookingWhite)
         mTargetLookAtRotation = mBlackLookAtRotation;
         mTargetLookAtLocation = mBlackLookAtLocation;
     }
+    mTimeSwitching = 0.0f;
+    mIsSwitchingCamera = true;
+}
+
+void AChessBoard::setCameraMiddle()
+{
+    mTargetLookAtRotation = mMiddleLookAtRotation;
+    mTargetLookAtLocation = mMiddleLookAtLocation;
+
     mTimeSwitching = 0.0f;
     mIsSwitchingCamera = true;
 }

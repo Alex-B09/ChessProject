@@ -38,6 +38,7 @@ public:
     void Tick(float DeltaSeconds) override;
 
     void switchCamera(bool lookingWhite);
+    void setCameraMiddle();
 
     int getNbTiles() const;
     TArray<int> getPiecesPlacement() const;
@@ -64,6 +65,9 @@ private:
     FVector mBlackLookAtLocation;
     FRotator mWhiteLookAtRotation;
     FRotator mBlackLookAtRotation;
+
+    FVector mMiddleLookAtLocation;
+    FRotator mMiddleLookAtRotation;
 
     FVector mCurrentLookAtLocation;
     FRotator mCurrentLookAtRotation;

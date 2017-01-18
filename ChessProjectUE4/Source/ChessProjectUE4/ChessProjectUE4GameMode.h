@@ -29,7 +29,7 @@ public:
 
     // returns false if the move was invalid
     bool playTurn(AChessPiece * piece, UStaticMeshComponent* destination);
-    void ShowPieceMovement(AChessPiece * piece);
+    void ShowPiecePossibleMovement(AChessPiece * piece);
 
 private:
     AChessBoard * getChessBoard() const;

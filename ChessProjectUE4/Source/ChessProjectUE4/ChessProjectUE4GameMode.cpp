@@ -88,7 +88,7 @@ bool AChessProjectUE4GameMode::playTurn(AChessPiece * piece, UStaticMeshComponen
     return isMoveValid;
 }
 
-void AChessProjectUE4GameMode::ShowPieceMovement(AChessPiece * piece)
+void AChessProjectUE4GameMode::ShowPiecePossibleMovement(AChessPiece * piece)
 {
     mBoardLogic->HighlingPossiblePlacement(piece);
 }

@@ -5,11 +5,21 @@
 #include "ChessBoard.h"
 #include "ChessPiece.h"
 #include "ChessTile.h"
+#include "ChessPiece.h"
 
 #include "TileInformations.h"
 #include "Pathfinding.h"
 
 #include <memory>
+
+class CHESSPROJECTUE4_API ChessMove
+{
+    AChessPiece * mPiece;
+    TArray<ChessTile*> mPath;
+
+public:
+
+};
 
 /**
  * BoardLogic
@@ -39,6 +49,7 @@ public:
 
     //returns false if move is invalid
     bool MovePiece(AChessPiece* piece, ChessTile * tileDestination);
+    bool IsValidMove(AChessPiece* piece, ChessTile * tileDestination);
     ChessTile * getChessTileFromComponent(UStaticMeshComponent * component);
 
     bool isRightColor(AChessPiece * piece, bool isWhite);

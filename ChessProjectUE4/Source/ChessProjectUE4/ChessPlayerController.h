@@ -22,7 +22,7 @@ public:
 
 private:
     void rotateCamera();
-    void TestMouseClick();
+    void ProcessMouseClick();
 
     AChessPiece * mSelectedPiece = nullptr;
 };

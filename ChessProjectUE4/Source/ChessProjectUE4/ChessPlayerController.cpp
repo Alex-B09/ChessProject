@@ -31,7 +31,7 @@ void AChessPlayerController::SetupInputComponent()
     Super::SetupInputComponent();
 
     InputComponent->BindKey(EKeys::M, IE_Released, this, &AChessPlayerController::rotateCamera);
-    InputComponent->BindKey(EKeys::LeftMouseButton, IE_Pressed, this, &AChessPlayerController::TestMouseClick);
+    InputComponent->BindKey(EKeys::LeftMouseButton, IE_Pressed, this, &AChessPlayerController::ProcessMouseClick);
 }
 
 void AChessPlayerController::rotateCamera()
@@ -42,16 +42,11 @@ void AChessPlayerController::rotateCamera()
     }
 }
 
-void AChessPlayerController::TestMouseClick()
+void AChessPlayerController::ProcessMouseClick()
 {
     // Trace to see what is under the mouse cursor
     FHitResult hit;
     GetHitResultUnderCursor(ECC_Visibility, true, hit);
-
-    auto test1 = hit.Component;
-    auto test2 = hit.Distance;
-    auto test3 = hit.Component;
-
 
     if (hit.bBlockingHit)
     {
@@ -67,7 +62,7 @@ void AChessPlayerController::TestMouseClick()
 
             if (auto chessMode = Cast<AChessProjectUE4GameMode>(GetWorld()->GetAuthGameMode()))
             {
-                chessMode->ShowPieceMovement(mSelectedPiece);
+                chessMode->ShowPiecePossibleMovement(mSelectedPiece);
             }
 
             UE_LOG(LogTemp, Warning, TEXT("Selected : %s"), *chessPiece->GetName());
