@@ -85,6 +85,17 @@ bool AChessProjectUE4GameMode::playTurn(AChessPiece * piece, UStaticMeshComponen
         if (auto tile = mBoardLogic->getChessTileFromComponent(destination))
         {
             isMoveValid = mBoardLogic->MovePiece(piece, tile);
+            if (isMoveValid)
+            {
+                mIsWhiteTurn = !mIsWhiteTurn;
+                FTimerDelegate timedDelegate = FTimerDelegate::CreateLambda([=]()
+                {
+                    this->LookAtSide();
+                });
+
+                FTimerHandle switchCameraTimer;
+                GetWorldTimerManager().SetTimer(switchCameraTimer, timedDelegate, .3f, false);
+            }
         }
     }
     return isMoveValid;
