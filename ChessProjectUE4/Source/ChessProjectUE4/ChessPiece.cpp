@@ -149,3 +149,14 @@ UStaticMeshComponent * AChessPiece::getMeshOutliner() const
     return nullptr;
 }
 
+bool AChessPiece::IsWhite()const
+{
+    return mIsWhite;
+}
+
+void AChessPiece::setIsWhite(bool isWhite)
+{
+    mIsWhite = isWhite;
+    setMaterial(!isWhite);
+}
+

@@ -30,7 +30,7 @@ public:
     // returns false if the move was invalid
     bool playTurn(AChessPiece * piece, UStaticMeshComponent* destination);
     void ShowPiecePossibleMovement(AChessPiece * piece);
-
+    bool IsWhiteTurn() const;
 private:
     AChessBoard * getChessBoard() const;
 

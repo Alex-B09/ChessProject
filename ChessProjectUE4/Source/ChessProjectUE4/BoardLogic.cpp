@@ -110,7 +110,7 @@ void BoardLogic::PlacePieces()
 
                 if (chessPiece)
                 {
-                    chessPiece->setMaterial(isBlack);
+                    chessPiece->setIsWhite(!isBlack);
                     mPieces.Add(chessPiece);
                     tileInfo->piece = chessPiece;
                     if (isBlack)

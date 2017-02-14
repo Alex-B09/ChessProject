@@ -80,11 +80,13 @@ void AChessProjectUE4GameMode::LookAtCenter()
 bool AChessProjectUE4GameMode::playTurn(AChessPiece * piece, UStaticMeshComponent* destination)
 {
     bool isMoveValid = false;
-    if (auto tile = mBoardLogic->getChessTileFromComponent(destination))
+    if (piece->IsWhite() == mIsWhiteTurn)
     {
-        isMoveValid = mBoardLogic->MovePiece(piece, tile);
+        if (auto tile = mBoardLogic->getChessTileFromComponent(destination))
+        {
+            isMoveValid = mBoardLogic->MovePiece(piece, tile);
+        }
     }
-
     return isMoveValid;
 }
 
@@ -92,3 +94,9 @@ void AChessProjectUE4GameMode::ShowPiecePossibleMovement(AChessPiece * piece)
 {
     mBoardLogic->HighlingPossiblePlacement(piece);
 }
+
+bool AChessProjectUE4GameMode::IsWhiteTurn() const
+{
+    return mIsWhiteTurn;
+}
+

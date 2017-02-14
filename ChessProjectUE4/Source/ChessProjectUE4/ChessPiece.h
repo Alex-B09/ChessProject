@@ -35,6 +35,8 @@ public:
     void setSelected(bool isSelected);
 
     int GetMovementValue() const;
+    bool IsWhite()const;
+    void setIsWhite(bool isWhite);
 private:
     void loadMaterials();
 
@@ -55,7 +57,5 @@ protected:
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")
         EPieces mPieceType;
 
-    ///** Movement component used for movement logic in various movement modes (walking, falling, etc), containing relevant settings and functions to control movement. */
-    //UPROPERTY(Category = "Movement", VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = "true"))
-    //    UPawnMovementComponent* mPieceMovement;
+    bool mIsWhite = true;
 };
