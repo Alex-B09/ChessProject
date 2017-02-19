@@ -9,7 +9,6 @@ namespace
 {
     UMaterial * blackPieceMaterial = nullptr;
     UMaterial * whitePieceMaterial = nullptr;
-    UMaterial * outlinerPieceMaterial = nullptr;
 };
 
 AChessPiece::AChessPiece()
@@ -20,11 +19,6 @@ AChessPiece::AChessPiece()
     if (!RootComponent)
     {
         RootComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("PieceModel"));
-        auto outliner = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Outliner"));
-        if (outliner)
-        {
-            outliner->SetupAttachment(RootComponent);
-        }
 
         if (auto movement = CreateDefaultSubobject<UPieceMovementComponent>(TEXT("Movement")))
         {
@@ -45,17 +39,7 @@ void AChessPiece::OnConstruction(const FTransform& Transform)
         if (auto modelComponent = getMeshRoot())
         {
             modelComponent->SetStaticMesh(mPieceMesh);
-            modelComponent->bRenderCustomDepth = true;
-
-            if (auto outliner = getMeshOutliner())
-            {
-                outliner->SetStaticMesh(mPieceMesh);
-
-                const float SCALE = 1.02f;
-                FTransform transform;
-                transform.SetScale3D(FVector(SCALE, SCALE, SCALE));
-                outliner->SetRelativeTransform(transform);
-            }
+            modelComponent->SetRenderCustomDepth(false);
         }
     }
 }
@@ -64,28 +48,18 @@ void AChessPiece::OnConstruction(const FTransform& Transform)
 void AChessPiece::BeginPlay()
 {
     Super::BeginPlay();
-
-    if (auto outliner = getMeshOutliner())
-    {
-        outliner->SetMaterial(0, outlinerPieceMaterial);
-        outliner->SetVisibility(false); // to be safe -- not visible at start
-    }
 }
 
 // Called every frame
 void AChessPiece::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
-
 }
 
 void AChessPiece::loadMaterials()
 {
     static ConstructorHelpers::FObjectFinder<UMaterial> blackMaterial(TEXT("Material'/Game/Art/Pieces/PieceBlack.PieceBlack'"));
     static ConstructorHelpers::FObjectFinder<UMaterial> whiteMaterial(TEXT("Material'/Game/Art/Pieces/PieceWhite.PieceWhite'"));
-
-    static ConstructorHelpers::FObjectFinder<UMaterial> outlinerMaterial(TEXT("Material'/Game/Art/Pieces/OutlinerMaterial.OutlinerMaterial'"));
-
 
     if (blackMaterial.Object)
     {
@@ -95,11 +69,6 @@ void AChessPiece::loadMaterials()
     if (whiteMaterial.Object)
     {
         whitePieceMaterial = whiteMaterial.Object;
-    }
-
-    if (outlinerMaterial.Object)
-    {
-        outlinerPieceMaterial = outlinerMaterial.Object;
     }
 }
 
@@ -129,24 +98,15 @@ int AChessPiece::GetMovementValue() const
 
 void AChessPiece::setSelected(bool isSelected)
 {
-    if (auto outliner = getMeshOutliner())
+    if (auto outliner = getMeshRoot())
     {
-        outliner->SetVisibility(isSelected);
+        outliner->SetRenderCustomDepth(isSelected);
     }
 }
 
 UStaticMeshComponent * AChessPiece::getMeshRoot() const
 {
     return Cast<UStaticMeshComponent>(RootComponent);
-}
-
-UStaticMeshComponent * AChessPiece::getMeshOutliner() const
-{
-    if (auto root = RootComponent)
-    {
-        return Cast<UStaticMeshComponent>(root->GetChildComponent(0));
-    }
-    return nullptr;
 }
 
 bool AChessPiece::IsWhite()const

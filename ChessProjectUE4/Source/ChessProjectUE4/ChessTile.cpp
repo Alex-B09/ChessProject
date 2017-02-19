@@ -21,7 +21,13 @@ FRotator ChessTile::GetGlobalRotation() const
     return mTile->GetComponentRotation();
 }
 
+
 bool ChessTile::isSameTile(UStaticMeshComponent * tile)
 {
     return mTile == tile;
 }
+void ChessTile::setShadowMesh(UStaticMesh * mesh)
+{
+    mShadownMesh->SetStaticMesh(mesh);
+}
+

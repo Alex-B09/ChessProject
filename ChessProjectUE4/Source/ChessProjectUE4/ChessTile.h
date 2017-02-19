@@ -21,8 +21,10 @@ public:
     FRotator GetGlobalRotation() const;
 
     bool isSameTile(UStaticMeshComponent * tile);
+    void setShadowMesh(UStaticMesh * mesh);
 
 private:
     UStaticMeshComponent * mTile;
     UStaticMeshComponent * mSelector;
+    UStaticMeshComponent * mShadownMesh;
 };

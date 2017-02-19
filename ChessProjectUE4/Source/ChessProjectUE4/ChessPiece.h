@@ -41,7 +41,6 @@ private:
     void loadMaterials();
 
     UStaticMeshComponent * getMeshRoot() const;
-    UStaticMeshComponent * getMeshOutliner() const;
 
 protected:
     UPROPERTY(EditDefaultsOnly, Category = "Gameplay Logic")

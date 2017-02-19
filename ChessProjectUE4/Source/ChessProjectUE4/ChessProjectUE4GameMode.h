@@ -39,5 +39,4 @@ private:
     // set the pipeline to look at the right place
     void LookAtSide();
     void LookAtCenter();
-
 };
